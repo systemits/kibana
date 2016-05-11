@@ -1,74 +1,68 @@
 <kbn-notifications list="notifList"></kbn-notifications>
-<div class="content" chrome-context >
-  <nav
-    ng-style="::{ background: chrome.getNavBackground() }"
-    ng-class="{ show: chrome.getVisible() }"
-    class="hide navbar navbar-inverse navbar-static-top">
 
-    <!-- Mobile navbar -->
-    <div class="navbar-header">
-      <button ng-click="showCollapsed = !showCollapsed" type="button" class="navbar-toggle">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-      <span class="visible-xs">
-        <span ng-if="chrome.getBrand('title')" class="navbar-brand">{{ chrome.getBrand('title') }}</span>
-        <span ng-if="chrome.getActiveTabTitle()" class="navbar-brand">{{ chrome.getActiveTabTitle() }}</span>
-        <span ng-show="chrome.httpActive.length" class="spinner"></span>
-      </span>
-    </div>
-    <!-- /Mobile navbar -->
+<div class="content" chrome-context>
+    <nav ng-style="::{ background: chrome.getNavBackground() }"
+         ng-class="{ show: chrome.getVisible() }"
+         class="hide navbar navbar-inverse navbar-static-top tg-toolbar">
+        <!-- Mobile navbar -->
+        <div class="navbar-header">
+            <button ng-click="showCollapsed = !showCollapsed" type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
 
-    <!-- Full navbar -->
-    <div collapse="!showCollapsed" class="navbar-collapse" kbn-chrome-append-nav-controls>
-      <ul class="nav navbar-nav" role="navigation">
-        <li
-          ng-if="chrome.getBrand('logo')"
-          ng-style="{ 'background': chrome.getBrand('logo') }"
-          aria-label="{{ chrome.getAppTitle() }} Logo"
-          class="logo hidden-sm"
-          ></li>
+            <span class="visible-xs">
 
-        <li
-          ng-if="chrome.getBrand('smallLogo')"
-          ng-style="{ 'background': chrome.getBrand('smallLogo') }"
-          aria-label="{{ chrome.getAppTitle() }} Logo"
-          class="logo-small visible-sm hidden-xs"
-          ></li>
+            <span ng-if="chrome.getBrand('title')" class="navbar-brand">{{ chrome.getBrand('title') }}</span>
+                <span ng-if="chrome.getActiveTabTitle()" class="navbar-brand">{{ chrome.getActiveTabTitle() }}</span>
+                <span ng-show="chrome.httpActive.length" class="spinner"></span>
+            </span>
+        </div>
+        <!-- /Mobile navbar -->
 
-        <li ng-if="chrome.getBrand('title')" class="navbar-brand">{{ chrome.getBrand('title') }}</li>
+        <!-- Full navbar -->
+        <div collapse="!showCollapsed"
+             class="navbar-collapse tg-toolbar-tools"
+             kbn-chrome-append-nav-controls>
+            <ul class="nav navbar-nav tg-toolbar-navigation" role="navigation">
+                <li class="tg-toolbar-title">
+                    Analytics
+                </li>
 
-        <li ng-repeat="tab in chrome.getTabs()" ng-class="{ active: tab.active }">
-          <a ng-href="{{ tab.href() }}" ng-style="{ 'border-bottom-color': tab.activeIndicatorColor }">
-            {{ tab.title }}
-          </a>
-        </li>
+                <li ng-repeat="tab in chrome.getTabs()"
+                    ng-class="{ active: tab.active }"
+                    class="tg-toolbar-option">
+                    <a ng-href="{{ tab.href() }}"
+                       ng-style="{ 'border-bottom-color': tab.activeIndicatorColor }">
+                        {{ tab.title }}
+                    </a>
+                </li>
 
-        <li class="to-body" ng-class="{ active: appSwitcherTemplate.is('switcher') }" ng-if="chrome.getShowAppsLink()">
-          <a ng-click="appSwitcherTemplate.toggle('switcher')">
-            <i class="fa fa-th" alt="Show app switcher"></i>
-          </a>
-        </li>
-      </ul>
-    </div>
-    <!-- /Full navbar -->
-  </nav>
+                <li ng-if="chrome.getShowAppsLink()"
+                    ng-class="{ active: appSwitcherTemplate.is('switcher') }"
+                    class="to-body">
+                    <a ng-click="appSwitcherTemplate.toggle('switcher')">
+                        <i class="fa fa-th" alt="Show app switcher"></i>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <!-- /Full navbar -->
+    </nav>
 
-  <!-- TODO: These config dropdowns shouldn't be hard coded -->
-  <config
-    config-template="appSwitcherTemplate"
-    config-object="chrome"
-    config-close="appSwitcherTemplate.close">
-  </config>
+    <!-- TODO: These config dropdowns shouldn't be hard coded -->
+    <config config-template="appSwitcherTemplate"
+            config-object="chrome"
+            config-close="appSwitcherTemplate.close">
+    </config>
 
-  <config
-    ng-show="timefilter.enabled"
-    config-template="pickerTemplate"
-    config-object="timefilter"
-    config-close="pickerTemplate.close">
-  </config>
+    <config ng-show="timefilter.enabled"
+            config-template="pickerTemplate"
+            config-object="timefilter"
+            config-close="pickerTemplate.close">
+    </config>
 
-  <div class="application" ng-class="'tab-' + chrome.getActiveTabId('-none-') + ' ' + chrome.getApplicationClasses()" ng-view></div>
+    <div ng-view class="application" ng-class="'tab-' + chrome.getActiveTabId('-none-') + ' ' + chrome.getApplicationClasses()"></div>
 </div>

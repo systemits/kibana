@@ -330,3 +330,41 @@ input {
 .well {
   .box-shadow(none);
 }
+
+// Zerum Navbar ===============================================================
+
+.tg-toolbar {
+  height: @navbar-height;
+
+  &-tools {
+    font-size: @font-size-base;
+  }
+
+  &-navigation {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+  }
+
+  &-title {
+    color: @target-light-text-color;
+    font-size: @font-size-large;
+    padding-right: 16px;
+    font-weight: normal;
+    letter-spacing: 0.08px;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  &-option {
+    text-align: center;
+    align-items: center;
+
+    a {
+      display: flex;
+    }
+  }
+}
+
+.navbar-static-top .navbar-collapse {
+  padding: 0 16px;
+}
