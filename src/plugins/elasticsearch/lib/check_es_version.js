@@ -4,7 +4,7 @@ const versionSatisfies = require('./version_satisfies');
 const SetupError = require('./setup_error');
 
 module.exports = function (server) {
-  server.log(['plugin', 'debug'], 'Checking Elasticsearch version');
+  server.log(['plugin', 'debug'], 'Checking Engine version');
 
   const client = server.plugins.elasticsearch.client;
   const engineVersion = server.config().get('elasticsearch.engineVersion');
@@ -25,10 +25,10 @@ module.exports = function (server) {
     if (!badNodes.length) return true;
 
     const badNodeNames = badNodes.map(function (node) {
-      return 'Elasticsearch v' + node.version + ' @ ' + node.http_address + ' (' + node.ip + ')';
+      return 'Engine v' + node.version + ' @ ' + node.http_address + ' (' + node.ip + ')';
     });
 
-    const message = `This version of Kibana requires Elasticsearch ` +
+    const message = `This version of Analytics requires Engine ` +
     `${engineVersion} on all nodes. I found ` +
     `the following incompatible nodes in your cluster: ${badNodeNames.join(',')}`;
 

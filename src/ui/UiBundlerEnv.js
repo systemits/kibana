@@ -153,7 +153,7 @@ module.exports = class UiBundlerEnv {
   }
 
   claim(id, pluginId) {
-    const owner = pluginId ? `Plugin ${pluginId}` : 'Kibana Server';
+    const owner = pluginId ? `Plugin ${pluginId}` : 'Analytics Server';
 
     // TODO(spalger): we could do a lot more to detect colliding module defs
     const existingOwner = this.aliasOwners[id] || this.aliasOwners[`${id}$`];

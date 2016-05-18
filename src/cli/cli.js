@@ -8,11 +8,7 @@ let argv = process.env.kbnWorkerArgv ? JSON.parse(process.env.kbnWorkerArgv) : p
 let program = new Command('bin/kibana');
 
 program
-.version(pkg.version)
-.description(
-  'Kibana is an open source (Apache Licensed), browser ' +
-  'based analytics and search dashboard for Elasticsearch.'
-);
+.version(pkg.version);
 
 // attach commands
 require('./serve/serve')(program);

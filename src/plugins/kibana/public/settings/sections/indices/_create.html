@@ -3,8 +3,8 @@
     <div ng-controller="settingsIndicesCreate" class="kbn-settings-indices-create">
       <div class="page-header">
         <h1>Configure an index pattern</h1>
-        In order to use Kibana you must configure at least one index pattern. Index patterns are
-        used to identify the Elasticsearch index to run search and analytics against. They are also
+        In order to use Analytics you must configure at least one index pattern. Index patterns are
+        used to identify the Engine index to run search and analytics against. They are also
         used to configure fields.
       </div>
       <div>
@@ -31,7 +31,7 @@
                 time-interval based index patterns.
               </p>
               <p>
-                Kibana is now smart enough to automatically determine which
+                Analytics is now smart enough to automatically determine which
                 indices to search against within the current time range for
                 wildcard index patterns. This means that wildcard
                 index patterns now get the same performance optimizations when
@@ -68,7 +68,7 @@
               class="form-control">
               <small ng-show="index.nameInterval.name == 'weeks'">
                 <strong>Note: </strong>
-                I noticed you're using weekly indices. Kibana requires ISO weeks be used in your index creation.
+                I noticed you're using weekly indices. Analytics requires ISO weeks be used in your index creation.
                 See <a href="https://en.wikipedia.org/wiki/ISO_week_date" target="_blank" title="Wikipedia: ISO Week Date">Wikipedia: ISO Week Date</a>
               </small>
             </div>
@@ -83,7 +83,7 @@
               This index pattern will be queried directly rather than being
               expanded into more performant searches against individual indices.
 
-              Elasticsearch will receive a query against <em>{{index.name}}</em>
+              Engine will receive a query against <em>{{index.name}}</em>
               and will have to search through all matching indices regardless
               of whether they have data that matches the current time range.
             </div>
@@ -97,7 +97,7 @@
 
             <p class="help-block">
               Searching against the index pattern <em>logstash-*</em> will
-              actually query elasticsearch for the specific matching indices
+              actually query engine for the specific matching indices
               (e.g. <em>logstash-2015.12.21</em>) that fall within the current
               time range.
             </p>

@@ -55,7 +55,7 @@ define(function (require) {
     err = err || false;
 
     KbnError.call(this,
-      'Request to Elasticsearch failed: ' + angular.toJson(resp || err.message),
+      'Request to Engine failed: ' + angular.toJson(resp || err.message),
       errors.RequestFailure);
 
     this.origError = err;
@@ -132,7 +132,7 @@ define(function (require) {
    */
   errors.CacheWriteFailure = function CacheWriteFailure() {
     KbnError.call(this,
-      'A Elasticsearch cache write has failed.',
+      'A Engine cache write has failed.',
       errors.CacheWriteFailure);
   };
   _.class(errors.CacheWriteFailure).inherits(KbnError);

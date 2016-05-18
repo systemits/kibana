@@ -28,12 +28,12 @@ module.exports = function (server) {
       }
     }
   })
-  .catch(handleError('Unable to create Kibana index "<%= kibana.index %>"'))
+  .catch(handleError('Unable to create Analytics index "<%= kibana.index %>"'))
   .then(function () {
     return client.cluster.health({
       waitForStatus: 'yellow',
       index: index
     })
-    .catch(handleError('Waiting for Kibana index "<%= kibana.index %>" to come online failed.'));
+    .catch(handleError('Waiting for Analytics index "<%= kibana.index %>" to come online failed.'));
   });
 };

@@ -16,7 +16,7 @@ define(function (require) {
       },
       'sort:options': {
         value: '{ "unmapped_type": "boolean" }',
-        description: 'Options the Elasticsearch sort parameter',
+        description: 'Options the Engine sort parameter',
         type: 'json'
       },
       'dateFormat': {

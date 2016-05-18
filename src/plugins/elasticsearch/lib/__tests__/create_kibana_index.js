@@ -102,7 +102,7 @@ describe('plugins/elasticsearch', function () {
         client.indices.create.returns(Promise.reject(error));
         const fn = createKibanaIndex(server);
         return fn.catch(function (err) {
-          expect(err.message).to.be('Unable to create Kibana index ".my-kibana"');
+          expect(err.message).to.be('Unable to create Analytics index ".my-kibana"');
           expect(err).to.have.property('origError', error);
         });
       });
@@ -114,7 +114,7 @@ describe('plugins/elasticsearch', function () {
         client.cluster.health.returns(Promise.reject(error));
         const fn = createKibanaIndex(server);
         return fn.catch(function (err) {
-          expect(err.message).to.be('Waiting for Kibana index ".my-kibana" to come online failed.');
+          expect(err.message).to.be('Waiting for Analytics index ".my-kibana" to come online failed.');
           expect(err).to.have.property('origError', error);
         });
       });
