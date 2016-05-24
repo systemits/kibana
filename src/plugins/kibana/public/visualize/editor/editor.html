@@ -6,7 +6,7 @@
         ng-dblclick="unlink()"
         tooltip="Double click to unlink this visualization from the saved search"
         class="bitty-modal visualize-linked">
-        <i aria-hidden="true" class="fa fa-link"></i>
+        <i aria-hidden="true" class="mdi mdi-link"></i>
         &nbsp;
         This visualization is linked to a saved search:
         <b>{{ savedVis.savedSearch.title }}</b>
@@ -16,7 +16,7 @@
         ng-if="vis.type.requiresSearch && unlinking"
         ng-click="clearUnlinking()"
         class="bitty-modal">
-        <i aria-hidden="true" class="fa fa-chain-broken"></i> Unlinked!
+        <i aria-hidden="true" class="mdi mdi-link-off"></i> Unlinked!
       </div>
 
       <form ng-if="vis.type.requiresSearch && $state.linked" class="inline-form fill" name="queryInput">
@@ -30,7 +30,7 @@
             <button
               class="btn btn-default" type="submit"
               ng-disabled="true" aria-label="Search">
-              <span aria-hidden="true" class="fa fa-search"></span>
+              <span aria-hidden="true" class="mdi mdi-magnify"></span>
             </button>
           </div>
         </div>
@@ -56,7 +56,7 @@
             <button
               class="btn btn-default" type="submit"
               ng-disabled="queryInput.$invalid" aria-label="Search">
-              <span aria-hidden="true" class="fa fa-search"></span>
+              <span aria-hidden="true" class="mdi mdi-magnify"></span>
             </button>
           </div>
           <kbn-typeahead-items></kbn-typeahead-items>
@@ -66,7 +66,7 @@
 
     <div class="button-group">
       <kbn-tooltip text="New Visualization" placement="bottom" append-to-body="1">
-        <button ng-click="startOver()" aria-label="New Visualization"><i aria-hidden="true" class="fa fa-file-new-o"></i></button>
+        <button ng-click="startOver()" aria-label="New Visualization"><i aria-hidden="true" class="mdi mdi-file-outline"></i></button>
       </kbn-tooltip>
 
       <kbn-tooltip text="Save Visualization" placement="bottom" append-to-body="1">
@@ -77,12 +77,12 @@
           ng-if="!editableVis.dirty"
           aria-expanded="{{ configTemplate.is('save') }}"
           aria-label="Save Visualization">
-          <i aria-hidden="true" class="fa fa-save"></i>
+          <i aria-hidden="true" class="mdi mdi-content-save"></i>
         </button>
 
         <!-- save stub with tooltip -->
         <button disabled ng-if="editableVis.dirty" tooltip="Apply or Discard your changes before saving" aria-label="Apply or Discard your changes before saving">
-          <i aria-hidden="true" class="fa fa-save"></i>
+          <i aria-hidden="true" class="mdi mdi-content-save"></i>
         </button>
       </kbn-tooltip>
 
@@ -93,7 +93,7 @@
           aria-haspopup="true"
           aria-expanded="{{ configTemplate.is('load') }}"
           aria-label="Load Saved Visualization">
-          <i aria-hidden="true" class="fa fa-folder-open-o"></i>
+          <i aria-hidden="true" class="mdi mdi-folder-outline"></i>
         </button>
       </kbn-tooltip>
       <kbn-tooltip text="Share Visualization" placement="bottom" append-to-body="1">
@@ -103,14 +103,14 @@
           aria-haspopup="true"
           aria-expanded="{{ configTemplate.is('share') }}"
           aria-label="Share Visualization">
-          <i aria-hidden="true" class="fa fa-external-link"></i>
+          <i aria-hidden="true" class="mdi mdi-share"></i>
         </button>
       </kbn-tooltip>
       <kbn-tooltip text="Refresh" placement="bottom" append-to-body="1">
         <button
           ng-click="fetch()"
           aria-label="Refresh">
-          <i aria-hidden="true" class="fa fa-refresh"></i>
+          <i aria-hidden="true" class="mdi mdi-refresh"></i>
         </button>
       </kbn-tooltip>
     </div>
@@ -133,7 +133,7 @@
     <div class="vis-editor-canvas" ng-class="{ embedded: !chrome.getVisible() }">
       <div class="visualize-info" ng-if="savedVis.id">
         <div class="visualize-info-tab" title="{{::savedVis.vis.type.title}}">
-          <i class="fa" aria-label="{{::savedVis.vis.type.title}} Icon" ng-class="savedVis.vis.type.icon"></i>
+          <i class="mdi" aria-label="{{::savedVis.vis.type.title}} Icon" ng-class="savedVis.vis.type.icon"></i>
           <span ng-bind="::savedVis.title"></span>
         </div>
       </div>

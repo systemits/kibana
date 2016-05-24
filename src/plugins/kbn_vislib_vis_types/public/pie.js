@@ -6,7 +6,7 @@ define(function (require) {
     return new VislibVisType({
       name: 'pie',
       title: 'Pie chart',
-      icon: 'fa-pie-chart',
+      icon: 'mdi-chart-pie',
       description: 'Pie charts are ideal for displaying the parts of some whole. For example, sales percentages by department.' +
        'Pro Tip: Pie charts are best used sparingly, and with no more than 7 slices per pie.',
       params: {
@@ -35,7 +35,7 @@ define(function (require) {
         {
           group: 'buckets',
           name: 'segment',
-          icon: 'fa fa-scissors',
+          icon: 'mdi mdi-content-cut',
           title: 'Split Slices',
           min: 0,
           max: Infinity,
@@ -44,7 +44,7 @@ define(function (require) {
         {
           group: 'buckets',
           name: 'split',
-          icon: 'fa fa-th',
+          icon: 'mdi mdi-table-large',
           title: 'Split Chart',
           mustBeFirst: true,
           min: 0,

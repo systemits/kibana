@@ -16,7 +16,7 @@ define(function (require) {
     return new TemplateVisType({
       name: 'markdown',
       title: 'Markdown widget',
-      icon: 'fa-code',
+      icon: 'mdi-code-tags',
       description: 'Useful for displaying explanations or instructions for dashboards.',
       template: require('plugins/markdown_vis/markdown_vis.html'),
       params: {

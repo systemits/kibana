@@ -75,7 +75,7 @@ define(function (require) {
         let msg = alertDef.msg;
 
         // alert container
-        let $icon = $('<i>').addClass('vis-alerts-icon fa fa-' + icon);
+        let $icon = $('<i>').addClass('vis-alerts-icon mdi mdi-' + icon);
         let $text = $('<p>').addClass('vis-alerts-text').text(msg);
 
         return $('<div>').addClass('vis-alert vis-alert-' + type).append([$icon, $text]);

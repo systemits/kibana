@@ -1,5 +1,3 @@
-@import "~font-awesome/less/font-awesome";
-
 @status-bg: #eff0f2;
 @status-metric-bg: #fff;
 @status-metric-border: #aaa;
@@ -14,10 +12,16 @@
 @status-yellow: #edb800;
 @status-red: #da1e04;
 
-@icon-default: @fa-var-clock-o;
-@icon-green: @fa-var-check;
-@icon-yellow: @fa-var-exclamation-circle;
-@icon-red: @fa-var-exclamation-triangle;
+// MDI Icons
+@mdi-clock: "F150";
+@mdi-check: "F12C";
+@mdi-alert: "F026";
+@mdi-alert-circle: "F028";
+
+@icon-default: @mdi-clock;
+@icon-green: @mdi-check;
+@icon-yellow: @mdi-alert-circle;
+@icon-red: @mdi-alert;
 
 // background of main page
 .content {

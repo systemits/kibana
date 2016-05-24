@@ -1,6 +1,6 @@
 <div ng-click="toggleDisplay()" class="visualize-show-spy">
   <div class="visualize-show-spy-tab">
-    <i class="fa" ng-class="spy.mode.name ? 'fa-chevron-down' : 'fa-chevron-up'"></i>
+    <i class="mdi" ng-class="spy.mode.name ? 'mdi-chevron-down' : 'mdi-chevron-up'"></i>
   </div>
 </div>
 <div ng-show="spy.mode.name" class="visualize-spy-container">
@@ -16,8 +16,8 @@
     </div>
     <div class="button-group visualize-spy-fill">
       <a ng-click="toggleFullPage()">
-        <i ng-if="!spy.mode.fill" class="fa fa-expand"></i>
-        <i ng-if="spy.mode.fill" class="fa fa-compress"></i>
+        <i ng-if="!spy.mode.fill" class="mdi mdi-arrow-expand"></i>
+        <i ng-if="spy.mode.fill" class="mdi mdi-arrow-compress"></i>
       </a>
     </div>
   </header>

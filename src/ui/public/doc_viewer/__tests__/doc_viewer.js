@@ -97,18 +97,18 @@ describe('docViewer', function () {
       it('should apply a filter when clicking filterable fields', function () {
         let cell = $elem.find('td[title="bytes"]').next();
 
-        cell.find('.fa-search-plus').first().click();
+        cell.find('.mdi-magnify-plus').first().click();
         expect($scope.filter.calledOnce).to.be(true);
-        cell.find('.fa-search-minus').first().click();
+        cell.find('.mdi-magnify-minus').first().click();
         expect($scope.filter.calledTwice).to.be(true);
       });
 
       it('should NOT apply a filter when clicking non-filterable fields', function () {
         let cell = $elem.find('td[title="area"]').next();
 
-        cell.find('.fa-search-plus').first().click();
+        cell.find('.mdi-magnify-plus').first().click();
         expect($scope.filter.calledOnce).to.be(false);
-        cell.find('.fa-search-minus').first().click();
+        cell.find('.mdi-magnify-minus').first().click();
         expect($scope.filter.calledTwice).to.be(false);
       });
     });

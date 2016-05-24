@@ -4,7 +4,7 @@ exports.all = [
   {
     id: 'red',
     title: 'Red',
-    icon: 'danger',
+    icon: 'alert-circle',
     severity: 1000,
     nicknames: [
       'Danger Will Robinson! Danger!'
@@ -22,7 +22,7 @@ exports.all = [
   {
     id: 'yellow',
     title: 'Yellow',
-    icon: 'warning',
+    icon: 'alert',
     severity: 800,
     nicknames: [
       'S.N.A.F.U',
@@ -33,7 +33,7 @@ exports.all = [
   {
     id: 'green',
     title: 'Green',
-    icon: 'success',
+    icon: 'check',
     severity: 0,
     nicknames: [
       'Looking good'
@@ -43,7 +43,7 @@ exports.all = [
     id: 'disabled',
     title: 'Disabled',
     severity: -1,
-    icon: 'toggle-off',
+    icon: 'toggle-switch-off',
     nicknames: [
       'I\'m I even a thing?'
     ]

@@ -4,7 +4,7 @@ define(function (require) {
 
   require('ui/modules').get('apps/settings')
   .directive('indexedFields', function ($filter) {
-    const yesTemplate = '<i class="fa fa-check" aria-label="yes"></i>';
+    const yesTemplate = '<i class="mdi mdi-check" aria-label="yes"></i>';
     const noTemplate = '';
     const nameHtml = require('plugins/kibana/settings/sections/indices/_field_name.html');
     const typeHtml = require('plugins/kibana/settings/sections/indices/_field_type.html');

@@ -227,7 +227,7 @@ define(function (require) {
     return add({
       type: 'danger',
       content: formatMsg(err, this.from),
-      icon: 'warning',
+      icon: 'alert',
       title: 'Error',
       lifetime: 300000,
       actions: ['report', 'accept'],
@@ -244,7 +244,7 @@ define(function (require) {
     return add({
       type: 'warning',
       content: formatMsg(msg, this.from),
-      icon: 'warning',
+      icon: 'alert',
       title: 'Warning',
       lifetime: 10000,
       actions: ['accept']
@@ -260,7 +260,7 @@ define(function (require) {
     return add({
       type: 'info',
       content: formatMsg(msg, this.from),
-      icon: 'info-circle',
+      icon: 'information',
       title: 'Debug',
       lifetime: 5000,
       actions: ['accept']

@@ -123,26 +123,26 @@ describe('Doc Table', function () {
 
         // Should not be sorted at first
         expect($scope.sorting).to.eql(undefined);
-        expect($scope.headerClass(fields[0])).to.contain('fa-sort-up');
+        expect($scope.headerClass(fields[0])).to.contain('mdi-sort-ascending');
 
         $scope.sort(fields[0]);
         expect($scope.sorting).to.eql([fields[0], 'asc']);
-        expect($scope.headerClass(fields[0])).to.contain('fa-sort-up');
+        expect($scope.headerClass(fields[0])).to.contain('mdi-sort-ascending');
 
         $scope.sort(fields[0]);
         expect($scope.sorting).to.eql([fields[0], 'desc']);
-        expect($scope.headerClass(fields[0])).to.contain('fa-sort-down');
+        expect($scope.headerClass(fields[0])).to.contain('mdi-sort-descending');
 
         $scope.sort(fields[0]);
         expect($scope.sorting).to.eql([fields[0], 'asc']);
-        expect($scope.headerClass(fields[0])).to.contain('fa-sort-up');
+        expect($scope.headerClass(fields[0])).to.contain('mdi-sort-ascending');
 
         $scope.sort(fields[1]);
         expect($scope.sorting).to.eql([fields[1], 'asc']);
-        expect($scope.headerClass(fields[1])).to.contain('fa-sort-up');
+        expect($scope.headerClass(fields[1])).to.contain('mdi-sort-ascending');
 
         // Should show the default sort for any other fields[0]
-        expect($scope.headerClass(fields[0])).to.contain('fa-sort-up');
+        expect($scope.headerClass(fields[0])).to.contain('mdi-sort-ascending');
 
         done();
       });

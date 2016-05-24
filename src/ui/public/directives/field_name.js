@@ -15,7 +15,7 @@ define(function (require) {
         let typeIcon = function (fieldType) {
           switch (fieldType) {
             case 'source':
-              return '<i class="fa fa-file-text-o "></i>';
+              return '<i class="mdi mdi-file"></i>';
             case 'string':
               return '<i><strong>t</strong></i>';
             case 'murmur3':
@@ -23,15 +23,15 @@ define(function (require) {
             case 'number':
               return '<i><strong>#</strong></i>';
             case 'date':
-              return '<i class="fa fa-clock-o"></i>';
+              return '<i class="mdi mdi-clock"></i>';
             case 'ip':
-              return '<i class="fa fa-laptop"></i>';
+              return '<i class="mdi mdi-laptop"></i>';
             case 'geo_point':
-              return '<i class="fa fa-globe"></i>';
+              return '<i class="mdi mdi-earth"></i>';
             case 'boolean':
-              return '<i class="fa fa-adjust"></i>';
+              return '<i class="mdi mdi-contrast-circle"></i>';
             case 'conflict':
-              return '<i class="fa fa-warning"></i>';
+              return '<i class="mdi mdi-alert"></i>';
             default:
               return '<i><strong>?</strong></i>';
           }
