@@ -31,7 +31,10 @@ module.exports = function (kibana) {
           'ui/vislib',
           'ui/agg_response',
           'ui/agg_types',
-          'leaflet'
+          'leaflet',
+          'angular-material',
+          'angular-animate',
+          'angular-aria'
         ),
 
         injectVars: function (server, options) {

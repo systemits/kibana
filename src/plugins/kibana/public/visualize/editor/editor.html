@@ -1,120 +1,125 @@
 <div ng-controller="VisEditor" class="vis-editor vis-type-{{ vis.type.name }}">
+  <md-toolbar ng-show="chrome.getVisible()" class="md-hue-2">
+      <div class="md-toolbar-tools">
+          <div class="tg-filter-toolbar-field bitty-modal-container" flex>
+            <div ng-if="vis.type.requiresSearch && $state.linked && !unlinking"
+              ng-dblclick="unlink()"
+              tooltip="Double click to unlink this visualization from the saved search"
+              class="bitty-modal visualize-linked"
+              layout="row" layout-align="center center">
+              <i aria-hidden="true" class="mdi mdi-link"></i>
+              &nbsp;
+              This visualization is linked to a saved search:
+              <b>{{ savedVis.savedSearch.title }}</b>
+            </div>
 
-  <navbar ng-if="chrome.getVisible()">
-    <div class="fill bitty-modal-container">
-      <div ng-if="vis.type.requiresSearch && $state.linked && !unlinking"
-        ng-dblclick="unlink()"
-        tooltip="Double click to unlink this visualization from the saved search"
-        class="bitty-modal visualize-linked">
-        <i aria-hidden="true" class="mdi mdi-link"></i>
-        &nbsp;
-        This visualization is linked to a saved search:
-        <b>{{ savedVis.savedSearch.title }}</b>
-      </div>
+            <div
+              ng-if="vis.type.requiresSearch && unlinking"
+              ng-click="clearUnlinking()"
+              class="bitty-modal" layout="row" layout-align="center center">
+              <i aria-hidden="true" class="mdi mdi-link-off"></i> Unlinked!
+            </div>
 
-      <div
-        ng-if="vis.type.requiresSearch && unlinking"
-        ng-click="clearUnlinking()"
-        class="bitty-modal">
-        <i aria-hidden="true" class="mdi mdi-link-off"></i> Unlinked!
-      </div>
+            <form ng-if="vis.type.requiresSearch && $state.linked"
+                  name="queryInput" layout="row" flex>
+              <md-icon md-font-set="mdi" md-font-icon="mdi-magnify" class="mdi-24px">
+              </md-icon>
+              <div class="typeahead" flex>
+                  <input
+                    disabled
+                    type="text">
+              </div>
+            </form>
 
-      <form ng-if="vis.type.requiresSearch && $state.linked" class="inline-form fill" name="queryInput">
-        <div class="typeahead">
-          <div class="input-group">
-            <input
-              disabled
-              type="text"
-              class="form-control">
-
-            <button
-              class="btn btn-default" type="submit"
-              ng-disabled="true" aria-label="Search">
-              <span aria-hidden="true" class="mdi mdi-magnify"></span>
-            </button>
+            <form ng-if="vis.type.requiresSearch && !$state.linked"
+                  ng-submit="fetch()" name="queryInput" layout="row" flex>
+              <md-icon md-font-set="mdi" md-font-icon="mdi-magnify" class="mdi-24px">
+              </md-icon>
+              <div class="typeahead" kbn-typeahead="visualize" flex>
+                <div ng-class="queryInput.$invalid ? 'has-error' : ''" flex>
+                  <input
+                    ng-model="state.query"
+                    parse-query
+                    input-focus
+                    kbn-typeahead-input
+                    placeholder="Search..."
+                    aria-label="Search"
+                    type="text">
+                </div>
+              </div>
+            </form>
           </div>
-        </div>
-      </form>
 
-      <form
-        ng-if="vis.type.requiresSearch && !$state.linked"
-        ng-submit="fetch()"
-        class="inline-form fill"
-        name="queryInput">
-        <div class="typeahead" kbn-typeahead="visualize">
-          <div class="input-group"
-            ng-class="queryInput.$invalid ? 'has-error' : ''">
-            <input
-              ng-model="state.query"
-              parse-query
-              input-focus
-              kbn-typeahead-input
-              placeholder="Search..."
-              type="text"
-              class="form-control">
+          <md-button ng-click="startOver()" type="button" class="md-icon-button"
+                     aria-label="New Visualization">
+              <md-icon md-font-set="mdi" md-font-icon="mdi-file-outline" class="mdi-24px"></md-icon>
 
-            <button
-              class="btn btn-default" type="submit"
-              ng-disabled="queryInput.$invalid" aria-label="Search">
-              <span aria-hidden="true" class="mdi mdi-magnify"></span>
-            </button>
-          </div>
-          <kbn-typeahead-items></kbn-typeahead-items>
-        </div>
-      </form>
-    </div>
+              <md-tooltip>
+                  <span translate>New Visualization</span>
+              </md-tooltip>
+          </md-button>
 
-    <div class="button-group">
-      <kbn-tooltip text="New Visualization" placement="bottom" append-to-body="1">
-        <button ng-click="startOver()" aria-label="New Visualization"><i aria-hidden="true" class="mdi mdi-file-outline"></i></button>
-      </kbn-tooltip>
+          <md-button type="button" class="md-icon-button"
+                     ng-class="{active: configTemplate.is('save')}"
+                     ng-click="configTemplate.toggle('save')"
+                     ng-if="!editableVis.dirty"
+                     aria-expanded="{{ configTemplate.is('save') }}"
+                     aria-label="Save Visualization">
+              <md-icon md-font-set="mdi" md-font-icon="mdi-content-save" class="mdi-24px"></md-icon>
 
-      <kbn-tooltip text="Save Visualization" placement="bottom" append-to-body="1">
-        <!-- normal save -->
-        <button
-          ng-class="{active: configTemplate.is('save')}"
-          ng-click="configTemplate.toggle('save')"
-          ng-if="!editableVis.dirty"
-          aria-expanded="{{ configTemplate.is('save') }}"
-          aria-label="Save Visualization">
-          <i aria-hidden="true" class="mdi mdi-content-save"></i>
-        </button>
+              <md-tooltip>
+                  <span translate>Save Visualization</span>
+              </md-tooltip>
+          </md-button>
 
-        <!-- save stub with tooltip -->
-        <button disabled ng-if="editableVis.dirty" tooltip="Apply or Discard your changes before saving" aria-label="Apply or Discard your changes before saving">
-          <i aria-hidden="true" class="mdi mdi-content-save"></i>
-        </button>
-      </kbn-tooltip>
+          <md-button type="button" class="md-icon-button"
+                     disabled
+                     ng-if="editableVis.dirty"
+                     aria-label="Apply or Discard your changes before saving">
+              <md-icon md-font-set="mdi" md-font-icon="mdi-content-save" class="mdi-24px"></md-icon>
 
-      <kbn-tooltip text="Load Saved Visualization" placement="bottom" append-to-body="1">
-        <button
-          ng-class="{active: configTemplate.is('load')}"
-          ng-click="configTemplate.toggle('load')"
-          aria-haspopup="true"
-          aria-expanded="{{ configTemplate.is('load') }}"
-          aria-label="Load Saved Visualization">
-          <i aria-hidden="true" class="mdi mdi-folder-outline"></i>
-        </button>
-      </kbn-tooltip>
-      <kbn-tooltip text="Share Visualization" placement="bottom" append-to-body="1">
-        <button
-          ng-class="{active: configTemplate.is('share')}"
-          ng-click="configTemplate.toggle('share')"
-          aria-haspopup="true"
-          aria-expanded="{{ configTemplate.is('share') }}"
-          aria-label="Share Visualization">
-          <i aria-hidden="true" class="mdi mdi-share"></i>
-        </button>
-      </kbn-tooltip>
-      <kbn-tooltip text="Refresh" placement="bottom" append-to-body="1">
-        <button
-          ng-click="fetch()"
-          aria-label="Refresh">
-          <i aria-hidden="true" class="mdi mdi-refresh"></i>
-        </button>
-      </kbn-tooltip>
-    </div>
-  </navbar>
+              <md-tooltip>
+                  <span translate>Apply or Discard your changes before saving</span>
+              </md-tooltip>
+          </md-button>
+
+          <md-button type="button" class="md-icon-button"
+                     ng-class="{active: configTemplate.is('load')}"
+                     ng-click="configTemplate.toggle('load')"
+                     aria-haspopup="true"
+                     aria-expanded="{{ configTemplate.is('load') }}"
+                     aria-label="Load Saved Visualization">
+              <md-icon md-font-set="mdi" md-font-icon="mdi-folder-outline" class="mdi-24px"></md-icon>
+
+              <md-tooltip>
+                  <span translate>Load Saved Visualization</span>
+              </md-tooltip>
+          </md-button>
+
+          <md-button type="button" class="md-icon-button"
+                     ng-class="{active: configTemplate.is('share')}"
+                     ng-click="configTemplate.toggle('share')"
+                     aria-haspopup="true"
+                     aria-expanded="{{ configTemplate.is('share') }}"
+                     aria-label="Share Visualization">
+              <md-icon md-font-set="mdi" md-font-icon="mdi-share" class="mdi-24px"></md-icon>
+
+              <md-tooltip>
+                  <span translate>Share Visualization</span>
+              </md-tooltip>
+          </md-button>
+
+          <md-button type="button" class="md-icon-button"
+                     ng-click="fetch()"
+                     aria-label="Refresh">
+              <md-icon md-font-set="mdi" md-font-icon="mdi-refresh" class="mdi-24px"></md-icon>
+
+              <md-tooltip>
+                  <span translate>Refresh</span>
+              </md-tooltip>
+          </md-button>
+      </div>
+  </md-toolbar>
 
   <config
     ng-if="chrome.getVisible()"

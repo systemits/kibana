@@ -4,6 +4,7 @@ require('plugins/kibana/dashboard/index');
 require('plugins/kibana/settings/index');
 require('plugins/kibana/doc/index');
 require('ui/timepicker');
+require('plugins/kibana/kibana.config');
 
 const moment = require('moment-timezone');
 

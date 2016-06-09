@@ -1,67 +1,75 @@
 <div ng-controller="discover" class="app-container">
-  <navbar>
-    <form role="form" class="fill inline-form" ng-submit="fetch()" name="discoverSearch">
-      <div class="typeahead" kbn-typeahead="discover">
-        <div class="input-group"
-          ng-class="discoverSearch.$invalid ? 'has-error' : ''">
-          <input
-            parse-query
-            input-focus
-            kbn-typeahead-input
-            ng-model="state.query"
-            placeholder="Search..."
-            aria-label="Search input"
-            type="text"
-            class="form-control">
-          <button type="submit"
-            ng-disabled="discoverSearch.$invalid"
-            aria-label="Search">
-            <span aria-hidden="true" class="mdi mdi-magnify"></span></button>
-        </div>
-        <kbn-typeahead-items></kbn-typeahead-items>
-      </div>
-    </form>
+  <md-toolbar class="md-hue-2">
+      <div class="md-toolbar-tools">
+          <div class="tg-filter-toolbar-field" flex>
+            <form ng-submit="fetch()" name="discoverSearch" layout="row" flex>
+              <md-icon md-font-set="mdi" md-font-icon="mdi-magnify" class="mdi-24px">
+              </md-icon>
+              <div class="typeahead" kbn-typeahead="discover" flex>
+                <div ng-class="discoverSearch.$invalid ? 'has-error' : ''" flex>
+                  <input
+                    input-focus
+                    parse-query
+                    kbn-typeahead-input
+                    ng-model="state.query"
+                    placeholder="Search..."
+                    aria-label="Search input"
+                    type="text" flex>
+                </div>
+              </div>
+            </form>
+          </div>
 
-    <div class="button-group" role="toolbar">
-      <kbn-tooltip text="New Search" placement="bottom" append-to-body="1">
-        <button
-          ng-click="newQuery()"
-          aria-label="New Search">
-          <i aria-hidden="true" class="mdi mdi-close"></i>
-        </button>
-      </kbn-tooltip>
-      <kbn-tooltip text="Save Search" placement="bottom" append-to-body="1">
-        <button
-          ng-click="configTemplate.toggle('save');"
-          ng-class="{active: configTemplate.is('save')}"
-          aria-haspopup="true"
-          aria-expanded="{{ configTemplate.is('save') }}"
-          aria-label="Save Search">
-          <i aria-hidden="true" class="mdi mdi-content-save"></i>
-        </button>
-      </kbn-tooltip>
-      <kbn-tooltip text="Load Saved Search" placement="bottom" append-to-body="1">
-        <button
-          aria-haspopup="true"
-          aria-expanded="{{ configTemplate.is('load') }}"
-          ng-click="configTemplate.toggle('load');"
-          ng-class="{active: configTemplate.is('load')}"
-          aria-label="Load Saved Search">
-          <i aria-hidden="true" class="mdi mdi-folder-outline"></i>
-        </button>
-      </kbn-tooltip>
-      <kbn-tooltip text="Share" placement="bottom" append-to-body="1">
-        <button
-          aria-label="Share Search"
-          aria-haspopup="true"
-          aria-expanded="{{ configTemplate.is('share') }}"
-          ng-class="{active: configTemplate.is('share')}"
-          ng-click="configTemplate.toggle('share');">
-          <i aria-hidden="true" class="mdi mdi-share"></i>
-        </button>
-      </kbn-tooltip>
-    </div>
-  </navbar>
+          <md-button ng-click="newQuery()" type="button" class="md-icon-button"
+                     aria-label="Clear filter button">
+              <md-icon md-font-set="mdi" md-font-icon="mdi-close" class="mdi-24px"></md-icon>
+
+              <md-tooltip>
+                  <span translate>New search</span>
+              </md-tooltip>
+          </md-button>
+
+          <md-button type="button" class="md-icon-button"
+                     aria-label="Open save options button"
+                     ng-click="configTemplate.toggle('save');"
+                     ng-class="{active: configTemplate.is('save')}"
+                     aria-haspopup="true"
+                     aria-expanded="{{ configTemplate.is('save') }}"
+                     aria-label="Save Search">
+              <md-icon md-font-set="mdi" md-font-icon="mdi-content-save" class="mdi-24px"></md-icon>
+
+              <md-tooltip>
+                  <span translate>Save search</span>
+              </md-tooltip>
+          </md-button>
+
+          <md-button type="button" class="md-icon-button"
+                     aria-haspopup="true"
+                     aria-expanded="{{ configTemplate.is('load') }}"
+                     ng-click="configTemplate.toggle('load');"
+                     ng-class="{active: configTemplate.is('load')}"
+                     aria-label="Load Saved Search">
+              <md-icon md-font-set="mdi" md-font-icon="mdi-folder" class="mdi-24px"></md-icon>
+
+              <md-tooltip>
+                  <span translate>Load search</span>
+              </md-tooltip>
+          </md-button>
+
+          <md-button type="button" class="md-icon-button"
+                     aria-label="Share Search"
+                     aria-haspopup="true"
+                     aria-expanded="{{ configTemplate.is('share') }}"
+                     ng-class="{active: configTemplate.is('share')}"
+                     ng-click="configTemplate.toggle('share');">
+              <md-icon md-font-set="mdi" md-font-icon="mdi-share" class="mdi-24px"></md-icon>
+
+              <md-tooltip>
+                  <span translate>Share</span>
+              </md-tooltip>
+          </md-button>
+      </div>
+  </md-toolbar>
 
   <config config-template="configTemplate" config-object="opts" config-close="configClose"></config>
 
