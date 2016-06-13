@@ -1,14 +1,30 @@
-<form ng-submit="opts.save()" role="form">
-  <div class="form-group">
-    <label for="dashboardTitle">Save As</label>
-    <input id="dashboardTitle" type="text" ng-model="opts.dashboard.title" class="form-control" placeholder="Dashboard title" input-focus="select">
+<form ng-submit="opts.save()" flex>
+  <md-input-container class="md-block" md-no-float>
+      <input id="dashboardTitle"
+             type="text"
+             ng-model="opts.dashboard.title"
+             class="form-control"
+             placeholder="Dashboard title"
+             input-focus="select">
+  </md-input-container>
+
+  <div layout="row" class="md-body-1" layout-align="start center">
+    <md-checkbox ng-model="opts.dashboard.timeRestore"
+                 class="md-primary" aria-label="Store time Checkbox">
+        Store time with dashboard
+    </md-checkbox>
+
+    <md-icon md-font-set="mdi" md-font-icon="mdi-information" class="information mdi-24px">
+      <md-tooltip>
+          <span translate>Change the time filter to the currently selected time each time this dashboard is loaded</span>
+      </md-tooltip>
+    </md-icon>
   </div>
-  <div class="form-group">
-    <label>
-      <input type="checkbox" ng-model="opts.dashboard.timeRestore" ng-checked="opts.dashboard.timeRestore">
-      Store time with dashboard
-      <kbn-info info="Change the time filter to the currently selected time each time this dashboard is loaded"></kbn-info>
-    </label>
-  </div>
-  <button type="submit" ng-disabled="!opts.dashboard.title" class="btn btn-primary" aria-label="Save dashboard">Save</button>
+
+  <md-button type="submit"
+             ng-disabled="!opts.dashboard.title"
+             class="md-primary md-raised"
+             aria-label="Save dashboard">
+      <span translate>Save</span>
+  </md-button>
 </form>

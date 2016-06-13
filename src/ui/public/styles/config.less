@@ -4,8 +4,9 @@
   .navbar;
   .navbar-default();
   .navbar-static-top;
-  border-bottom: 1px solid;
-  border-bottom-color: @config-border;
+  border-bottom: 0px;
+  border-bottom-color: transparent;
+  box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.2), 0px 1px 1px 0px rgba(0, 0, 0, 0.14), 0px 2px 1px -1px rgba(0, 0, 0, 0.12);
 
   .config-close {
     width: 100%;
@@ -17,7 +18,15 @@
   }
 
   .container-fluid {
-    padding: 10px 10px;
+    padding: 16px 16px;
     background-color: @config-bg;
+
+    md-input-container {
+      margin: 0;
+    }
+
+    md-checkbox, md-icon.information {
+      margin: 0 0 16px 8px;
+    }
   }
 }

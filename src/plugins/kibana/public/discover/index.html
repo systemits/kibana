@@ -1,11 +1,10 @@
 <div ng-controller="discover" class="app-container">
-  <md-toolbar class="md-hue-2">
+  <md-toolbar class="md-whiteframe-z1 md-hue-2">
       <div class="md-toolbar-tools">
-          <div class="tg-filter-toolbar-field" flex>
+          <div class="tg-filter-toolbar-field typeahead" kbn-typeahead="discover" flex>
             <form ng-submit="fetch()" name="discoverSearch" layout="row" flex>
               <md-icon md-font-set="mdi" md-font-icon="mdi-magnify" class="mdi-24px">
               </md-icon>
-              <div class="typeahead" kbn-typeahead="discover" flex>
                 <div ng-class="discoverSearch.$invalid ? 'has-error' : ''" flex>
                   <input
                     input-focus
@@ -16,8 +15,9 @@
                     aria-label="Search input"
                     type="text" flex>
                 </div>
-              </div>
             </form>
+
+            <kbn-typeahead-items></kbn-typeahead-items>
           </div>
 
           <md-button ng-click="newQuery()" type="button" class="md-icon-button"

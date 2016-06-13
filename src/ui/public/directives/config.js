@@ -57,9 +57,6 @@ define(function (require) {
             html = $compile('' +
               '<div class="config" ng-show="configTemplate">' +
                 wrapTmpl(tmpl) +
-              '  <div class="config-close remove" ng-click="close()">' +
-              '    <i class="mdi mdi-chevron-up"></i>' +
-              '  </div>' +
               '</div>' +
               ''
             )(tmpScope);

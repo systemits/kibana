@@ -1,5 +1,5 @@
 <div ng-controller="VisEditor" class="vis-editor vis-type-{{ vis.type.name }}">
-  <md-toolbar ng-show="chrome.getVisible()" class="md-hue-2">
+  <md-toolbar ng-show="chrome.getVisible()" class="md-whiteframe-z1 md-hue-2">
       <div class="md-toolbar-tools">
           <div class="tg-filter-toolbar-field bitty-modal-container" flex>
             <div ng-if="vis.type.requiresSearch && $state.linked && !unlinking"
@@ -31,23 +31,25 @@
               </div>
             </form>
 
-            <form ng-if="vis.type.requiresSearch && !$state.linked"
-                  ng-submit="fetch()" name="queryInput" layout="row" flex>
-              <md-icon md-font-set="mdi" md-font-icon="mdi-magnify" class="mdi-24px">
-              </md-icon>
-              <div class="typeahead" kbn-typeahead="visualize" flex>
-                <div ng-class="queryInput.$invalid ? 'has-error' : ''" flex>
-                  <input
-                    ng-model="state.query"
-                    parse-query
-                    input-focus
-                    kbn-typeahead-input
-                    placeholder="Search..."
-                    aria-label="Search"
-                    type="text">
-                </div>
-              </div>
-            </form>
+            <div class="typeahead" kbn-typeahead="visualize" flex>
+              <form ng-if="vis.type.requiresSearch && !$state.linked"
+                    ng-submit="fetch()" name="queryInput" layout="row" flex>
+                <md-icon md-font-set="mdi" md-font-icon="mdi-magnify" class="mdi-24px">
+                </md-icon>
+                  <div ng-class="queryInput.$invalid ? 'has-error' : ''" flex>
+                    <input
+                      ng-model="state.query"
+                      parse-query
+                      input-focus
+                      kbn-typeahead-input
+                      placeholder="Search..."
+                      aria-label="Search"
+                      type="text">
+                  </div>
+              </form>
+
+              <kbn-typeahead-items></kbn-typeahead-items>
+            </div>
           </div>
 
           <md-button ng-click="startOver()" type="button" class="md-icon-button"

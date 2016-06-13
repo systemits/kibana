@@ -1,7 +1,15 @@
-<form role="form" ng-submit="conf.doSave()">
-  <div class="form-group">
-    <label for="visTitle">Title</label>
-    <input class="form-control" input-focus="select" type="text" name="visTitle" ng-model="conf.savedVis.title" required>
-  </div>
-  <button type="submit" class="btn btn-primary">Save</button>
+<form ng-submit="conf.doSave()" flex>
+  <md-input-container class="md-block" md-no-float>
+      <input name="visTitle"
+             input-focus="select"
+             type="text"
+             ng-model="conf.savedVis.title"
+             placeholder="Name this visualization..."
+             required>
+  </md-input-container>
+
+  <md-button type="submit" class="md-primary md-raised"
+             aria-label="Save visualization button">
+      <span translate>Save</span>
+  </md-button>
 </form>

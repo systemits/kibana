@@ -1,12 +1,11 @@
 <div dashboard-app class="app-container dashboard-container">
-  <md-toolbar ng-show="chrome.getVisible()" class="md-hue-2">
+  <md-toolbar ng-show="chrome.getVisible()" class="md-whiteframe-z1 md-hue-2">
       <div class="md-toolbar-tools">
           <span class="name" ng-if="dash.id" ng-bind="::dash.title" tooltip="{{::dash.title}}"></span>
-          <div class="tg-filter-toolbar-field" flex>
+          <div class="tg-filter-toolbar-field typeahead" kbn-typeahead="dashboard" flex>
             <form ng-submit="filterResults()" name="queryInput" layout="row" flex>
               <md-icon md-font-set="mdi" md-font-icon="mdi-magnify" class="mdi-24px">
               </md-icon>
-              <div class="typeahead" kbn-typeahead="dashboard" flex>
                 <div ng-class="queryInput.$invalid ? 'has-error' : ''" flex>
                   <input
                     type="text"
@@ -18,9 +17,11 @@
                     kbn-typeahead-input
                     parse-query>
                 </div>
-              </div>
             </form>
+
+            <kbn-typeahead-items></kbn-typeahead-items>
           </div>
+
           <md-button ng-click="newDashboard()" type="button" class="md-icon-button"
                      aria-label="New Dashboard">
               <md-icon md-font-set="mdi" md-font-icon="mdi-file-outline" class="mdi-24px"></md-icon>
@@ -80,19 +81,6 @@
 
               <md-tooltip>
                   <span translate>Add Visualization</span>
-              </md-tooltip>
-          </md-button>
-
-          <md-button type="button" class="md-icon-button"
-                     aria-label="Options"
-                     aria-haspopup="true"
-                     aria-expanded="{{ configTemplate.is('options') }}"
-                     ng-class="{active: configTemplate.is('options')}"
-                     ng-click="configTemplate.toggle('options');">
-              <md-icon md-font-set="mdi" md-font-icon="mdi-settings" class="mdi-24px"></md-icon>
-
-              <md-tooltip>
-                  <span translate>Options</span>
               </md-tooltip>
           </md-button>
       </div>
