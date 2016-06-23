@@ -1,38 +1,44 @@
-<div class="form-group">
-  <label for="field">
-    Field
-  </label>
+<md-input-container class="md-block">
+  <label>Field</label>
+  <md-select
+      name="field"
+      required
+      ng-model="agg.params.field"
+      ng-show="indexedFields.length"
+      auto-select-if-only-one="indexedFields"
+      ng-change="aggParam.onChange(agg)">
+    <md-optgroup ng-repeat="(key, value) in indexedFields | groupBy: 'type'" label="{{ key }}">
+      <md-option ng-repeat="field in value" ng-value="field">
+        {{ field.displayName }}
+      </md-option>
+    </md-optgroup>
+  </md-select>
+</md-input-container>
 
-  <span class="pull-right text-warning hintbox-label" ng-show="agg.params.field.analyzed"
-      ng-click="showAnalyzedFieldWarning = !showAnalyzedFieldWarning">
-    <i class="mdi mdi-alert"></i> Analyzed Field
+<div class="tg-hint-select" ng-if="agg.params.field.analyzed">
+  <span class="warning"
+        ng-click="showAnalyzedFieldWarning = !showAnalyzedFieldWarning">
+    <md-icon md-font-set="mdi" md-font-icon="mdi-alert" class="md-warn mdi-12px">
+    </md-icon>
+      Analyzed Field
   </span>
-  <div class="hintbox" ng-show="showAnalyzedFieldWarning && agg.params.field.analyzed">
-    <p>
-    <strong>Careful!</strong> The field selected contains analyzed strings. Analyzed strings are highly unique and can use a lot of memory to visualize. Values such as <i>foo-bar</i> will be broken into <i>foo</i> and <i>bar</i>. See <a href="http://www.elastic.co/guide/en/elasticsearch/reference/current/mapping-types.html" target="_blank">Mapping Types</a> for more information on setting this field as <i>not_analyzed</i>
-    </p>
 
-    <p ng-show="indexedFields.byName[agg.params.field.name + '.raw'].analyzed == false">
-      <strong>Tip:</strong> <i>{{agg.params.field.name + '.raw'}}</i> may be a <i>not_analyzed</i> version of this field.
-    </p>
-  </div>
+  <md-whiteframe ng-show="showAnalyzedFieldWarning && agg.params.field.analyzed"
+    class="md-whiteframe-1dp" flex layout="column" layout-align="center center">
+      <p>
+      <strong>Careful!</strong> The field selected contains analyzed strings. Analyzed strings are highly unique and can use a lot of memory to visualize. Values such as <i>foo-bar</i> will be broken into <i>foo</i> and <i>bar</i>. See <a href="http://www.elastic.co/guide/en/elasticsearch/reference/current/mapping-types.html" target="_blank">Mapping Types</a> for more information on setting this field as <i>not_analyzed</i>
+      </p>
 
-  <select
-    class="form-control"
-    name="field"
-    required
-    ng-model="agg.params.field"
-    ng-show="indexedFields.length"
-    auto-select-if-only-one="indexedFields"
-    ng-options="field as field.displayName group by field.type for field in indexedFields"
-    ng-change="aggParam.onChange(agg)">
-  </select>
+      <p ng-show="indexedFields.byName[agg.params.field.name + '.raw'].analyzed == false">
+        <strong>Tip:</strong> <i>{{agg.params.field.name + '.raw'}}</i> may be a <i>not_analyzed</i> version of this field.
+      </p>
+  </md-whiteframe>
 
-  <div class="hintbox" ng-if="!indexedFields.length">
+  <md-whiteframe ng-if="!indexedFields.length"
+    class="md-whiteframe-1dp" flex layout="column" layout-align="center center">
     <p>
       <i class="mdi mdi-alert-circle text-danger"></i>
       <strong>No Compatible Fields:</strong> The "{{ vis.indexPattern.id }}" index pattern does not contain any of the following field types: {{ agg.type.params.byName.field.filterFieldTypes | commaList:false }}
     </p>
-  </div>
-
+  </md-whiteframe>
 </div>

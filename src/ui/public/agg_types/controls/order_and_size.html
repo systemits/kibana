@@ -1,15 +1,17 @@
-<div class="vis-editor-agg-form-row">
-  <div ng-if="agg.type.params.byName.order" class="form-group">
+<div class="vis-editor-agg-form-row" layout="row">
+  <md-input-container ng-if="agg.type.params.byName.order" flex="50">
     <label>Order</label>
-    <select
+    <md-select
       name="order"
       ng-model="agg.params.order"
-      required
-      ng-options="opt as opt.display for opt in aggParam.options"
-      class="form-control">
-    </select>
-  </div>
-  <div class="form-group">
+      required>
+      <md-option ng-repeat="opt in aggParam.options" ng-value="opt">
+        {{opt.display}}
+      </md-option>
+    </md-select>
+  </md-input-container>
+
+  <md-input-container flex>
     <label>Size</label>
     <input
       name="size"
@@ -17,7 +19,6 @@
       required
       class="form-control"
       type="number"
-      min="0"
-      >
-  </div>
+      min="0">
+  </md-input-container>
 </div>

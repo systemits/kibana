@@ -14,18 +14,15 @@
 <div
   ng-if="stats.max > stats.count"
   ng-init="add.form = stats.count < 1 ? !add.form : add.form"
-  ng-click="add.form = !add.form"
-  class="vis-editor-agg-wide-btn">
+  class="vis-editor-agg-add-btn" layout="row" layout-align="center center">
+  <md-button ng-click="add.form = !add.form" ng-if="!add.form"
+             class="md-raised">
+      <span>Add </span>
+      <span ng-if="groupName === 'buckets' && stats.count > 0">sub-</span><span>{{ groupName }}</span>
+  </md-button>
 
-  <div ng-if="!add.form">
-    <div class="vis-editor-agg-wide-btn-add" ng-if="groupName !== 'buckets' || !stats.count">
-      <i aria-hidden="true" class="mdi mdi-plus"></i> Add {{ groupName }}
-    </div>
-    <div class="vis-editor-agg-wide-btn-add" ng-if="groupName === 'buckets' && stats.count > 0">
-      <i aria-hidden="true" class="mdi mdi-source-fork"></i> Add sub-{{ groupName }}
-    </div>
-  </div>
-  <div class="vis-editor-agg-wide-btn-add" ng-if="add.form">
-    Cancel
-  </div>
+  <md-button ng-click="add.form = !add.form" ng-if="add.form"
+             class="md-raised">
+      <span>Cancel</span>
+  </md-button>
 </div>

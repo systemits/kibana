@@ -1,18 +1,13 @@
-<div class="form-group">
-  <div class="btn-group">
-    <button
-      type="button"
-      class="btn btn-xs btn-default"
-      ng-model="agg.params.row"
-      btn-radio="true">
-      Rows
-    </button>
-    <button
-      type="button"
-      class="btn btn-xs btn-default"
-      ng-model="agg.params.row"
-      btn-radio="false">
-      Columns
-    </button>
-  </div>
+<div layout="row" laoyut-align="start center">
+  <md-button ng-click="agg.params.row = true"
+             ng-class="agg.params.row ? 'md-raised' : ''"
+             class="md-primary">
+      <span>Rows</span>
+  </md-button>
+
+  <md-button ng-click="agg.params.row = false"
+             ng-class="!agg.params.row ? 'md-raised' : ''"
+             class="md-primary">
+      <span>Columns</span>
+  </md-button>
 </div>

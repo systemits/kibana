@@ -34,7 +34,8 @@ module.exports = function (kibana) {
           'leaflet',
           'angular-material',
           'angular-animate',
-          'angular-aria'
+          'angular-aria',
+          'angular-filter'
         ),
 
         injectVars: function (server, options) {

@@ -1,26 +1,31 @@
 <div ng-if="!aggParam.disabled(agg)">
-  <div class="form-group regex">
+  <md-input-container class="md-block regex">
     <label>{{ aggParam.name | label }} Pattern</label>
+
     <input
       type="text"
       class="form-control"
-      ng-model="agg.params[aggParam.name].pattern"
-    >
-  </div>
-  <div class="form-group regex">
-    <div class="flags">
-      <label>
-        {{ aggParam.name | label }} Pattern Flags
-        <small>(<a href="http://docs.oracle.com/javase/7/docs/api/java/util/regex/Pattern.html#field_detail"
-          target="_blank">reference</a>)</small>
-      </label>
+      ng-model="agg.params[aggParam.name].pattern">
+  </md-input-container>
 
-      <select
-        multiple="multiple"
-        ng-options="label for label in aggParam.flags"
-        ng-model="agg.params[aggParam.name].flags">
-      </select>
+  <div class="regex">
+    <md-input-container class="md-block flags">
+      <label>{{ aggParam.name | label }} Pattern Flags</label>
 
+      <md-select multiple ng-model="agg.params[aggParam.name].flags">
+        <md-option ng-repeat="label in aggParam.flags" ng-value="label">
+          {{label}}
+        </md-option>
+      </md-select>
+    </md-input-container>
+
+    <div class="tg-hint-select">
+      <md-button href="http://docs.oracle.com/javase/7/docs/api/java/util/regex/Pattern.html#field_detail" target="_blank" class="md-primary">
+        <span>Reference</span>
+
+        <md-icon md-font-set="mdi" md-font-icon="mdi-launch" class="mdi-12px">
+        </md-icon>
+      </md-button>
     </div>
   </div>
 </div>

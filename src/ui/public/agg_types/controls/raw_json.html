@@ -1,19 +1,30 @@
-<div class="form-group regex">
-    <span class="hintbox-label" ng-click="showJsonHint = !showJsonHint">
-      <label>JSON Input</label>
-      <i class="mdi mdi-information"></i>
-    </span>
-    <div class="hintbox" ng-show="showJsonHint">
-      <p>
-        Any JSON formatted properties you add here will be merged with the elasticsearch aggregation definition for this section. For example <i>shard_size</i> on a <i>terms</i> aggregation
-      </p>
-    </div>
-  <p>
+<div class="regex">
+  <md-input-container class="textarea md-block">
+    <label>JSON Input</label>
+
     <textarea
-      type="text"
-      class="form-control"
-      ng-model="agg.params.json"
-      validate-json
-      ></textarea>
-  </p>
+        type="text" rows="5"
+        class="form-control"
+        validate-json
+        ng-model="agg.params.json">
+    </textarea>
+
+  </md-input-container>
+
+  <div class="tg-hint-textarea">
+    <md-icon ng-click="showJsonHint = !showJsonHint"
+      md-font-set="mdi" md-font-icon="mdi-information" class="mdi-12px">
+    </md-icon>
+
+    <md-whiteframe ng-show="showJsonHint" class="md-whiteframe-1dp" flex layout layout-align="center center">
+      <span>
+        Any JSON formatted properties you add here will be merged with the elasticsearch
+        aggregation definition for this section. For example <i>shard_size</i> on a <i>terms</i>
+        aggregation
+      </span>
+    </md-whiteframe>
+  </div>
 </div>
+
+
+

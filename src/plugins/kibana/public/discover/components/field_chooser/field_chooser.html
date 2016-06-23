@@ -28,23 +28,30 @@
     </discover-field>
   </ul>
 
-  <div class="sidebar-list-header sidebar-item">
+  <div class="sidebar-list-header sidebar-item" layout="row" layout-align="space-between center">
     <h5>Available Fields
       <i
         ng-class="{ 'mdi-chevron-right': !showFields, 'mdi-chevron-down': showFields }"
         ng-click="showFields = !showFields"
         aria-hidden="true"
         class="mdi visible-xs visible-sm pull-right field-collapse-toggle" ></i>
-      <button
-        ng-class="{ 'btn-default': !filter.active, 'btn-success': filter.active, 'hidden-xs': !showFields, 'hidden-sm': !showFields }"
-        class="btn btn-xs btn-default pull-right discover-field-filter-toggle"
+    </h5>
+
+    <md-button class="md-icon-button"
+        class="pull-right discover-field-filter-toggle"
         ng-click="showFilter = !showFilter"
         aria-label="Field Settings"
         aria-haspopup="true"
         aria-expanded="{{showFilter}}">
-        <i aria-hidden="true" class="mdi mdi-settings"></i>
-      </button>
-    </h5>
+      <md-icon md-font-set="mdi" md-font-icon="mdi-settings"
+               ng-class="{'md-accent': filter.active, 'hidden-xs': !showFields, 'hidden-sm': !showFields }"
+               class="mdi-24px">
+      </md-icon>
+
+      <md-tooltip>
+          <span translate>Field Settings</span>
+      </md-tooltip>
+    </md-button>
   </div>
 
   <div class="sidebar-item" ng-show="showFilter">
@@ -52,55 +59,52 @@
         <i aria-hidden="true" class="mdi mdi-chevron-up"></i>
     </div>
     <form role="form" class="discover-field-details">
-      <div class="form-group">
-        <label>
-          Analyzed
-        </label>
-        <select
-          ng-options="opt.value as opt.label for opt in filter.boolOpts"
-          ng-model="filter.vals.analyzed"
-          class="form-control">
-        </select>
+      <md-input-container class="md-block">
+        <label>Analyzed</label>
+
+        <md-select ng-model="filter.vals.analyzed">
+          <md-option ng-repeat="opt in filter.boolOpts" ng-value="opt.value">
+            {{opt.label}}
+          </md-option>
+        </md-select>
+      </md-input-container>
+
+      <md-input-container class="md-block">
+        <label>Indexed</label>
+        <md-select ng-model="filter.vals.indexed">
+          <md-option ng-repeat="opt in filter.boolOpts" ng-value="opt.value">
+            {{opt.label}}
+          </md-option>
+        </md-select>
+      </md-input-container>
+
+      <md-input-container class="md-block">
+        <label>Type</label>
+        <md-select ng-model="filter.vals.type">
+          <md-option ng-repeat="field in fieldTypes" ng-value="field">
+            {{field}}
+          </md-option>
+        </md-select>
+      </md-input-container>
+
+      <md-input-container class="md-block">
+          <label>Field name</label>
+          <input ng-model="filter.vals.name" class="form-control">
+      </md-input-container>
+
+      <div layout="row" class="md-body-1" layout-align="start center">
+        <md-checkbox ng-model="filter.vals.missing"
+                     class="md-primary" aria-label="Hide Missing Fields">
+            Hide Missing Fields
+        </md-checkbox>
       </div>
-      <div class="form-group">
-        <label>
-          Indexed
-        </label>
-        <select
-          ng-options="opt.value as opt.label for opt in filter.boolOpts"
-          ng-model="filter.vals.indexed"
-          class="form-control">
-        </select>
+
+      <div layout="row" class="md-body-1" layout-align="center center">
+        <md-button ng-click="filter.reset()" ng-disabled="!filter.active"
+                   class="md-warn md-raised">
+            <span>Reset Filters</span>
+        </md-button>
       </div>
-      <div class="form-group">
-        <label>
-          Type
-        </label>
-        <select
-          ng-options="field as field for field in fieldTypes"
-          ng-model="filter.vals.type"
-          class="form-control">
-        </select>
-      </div>
-      <div class="form-group">
-        <label>
-          Field name
-        </label>
-        <input type="text" class="form-control" ng-model="filter.vals.name">
-      </div>
-      <div class="form-group">
-        <label>
-          <input type="checkbox" ng-model="filter.vals.missing">
-          Hide Missing Fields
-        </label>
-      </div>
-    </form>
-    <div
-      ng-click="filter.reset()"
-      ng-disabled="!filter.active"
-      class="sidebar-item-button danger ng-scope">
-      Reset Filters
-    </div>
   </div>
 
   <ul

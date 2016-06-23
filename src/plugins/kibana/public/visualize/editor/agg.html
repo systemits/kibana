@@ -1,14 +1,13 @@
 <!-- header -->
 <div class="vis-editor-agg-header">
 
-  <!-- open/close editor -->
-  <button
-    aria-label="{{ editorOpen ? 'Close Editor' : 'Open Editor' }}"
-    ng-click="editorOpen = !editorOpen"
-    type="button"
-    class="btn btn-default btn-xs vis-editor-agg-header-toggle">
-    <i aria-hidden="true" ng-class="{ 'mdi-menu-down': editorOpen, 'mdi-menu-right': !editorOpen }" class="mdi"></i>
-  </button>
+  <md-button class="md-icon-button" ng-click="editorOpen = !editorOpen">
+    <md-icon ng-show="editorOpen" md-font-set="mdi" md-font-icon="mdi-chevron-down" class="md-primary mdi-24px">
+    </md-icon>
+
+    <md-icon ng-show="!editorOpen" md-font-set="mdi" md-font-icon="mdi-chevron-right" class="md-primary mdi-24px">
+    </md-icon>
+  </md-button>
 
   <!-- title -->
   <span class="vis-editor-agg-header-title">
@@ -27,44 +26,45 @@
 
   <!-- controls !!!actually disabling buttons will break tooltips¡¡¡ -->
   <div class="vis-editor-agg-header-controls btn-group">
-    <!-- up button -->
-    <button
+
+  <md-button class="md-icon-button"
       aria-label="Increase Priority"
       ng-if="stats.count > 1"
       ng-class="{ disabled: $first }"
-      ng-click="moveUp(agg)"
-      tooltip="Increase Priority"
-      tooltip-append-to-body="true"
-      type="button"
-      class="btn btn-xs btn-default">
-      <i aria-hidden="true" class="mdi mdi-menu-up"></i>
-    </button>
+      ng-click="moveUp(agg)">
+    <md-icon md-font-set="mdi" md-font-icon="mdi-arrow-up" class="md-primary mdi-24px">
+    </md-icon>
 
-    <!-- down button -->
-    <button
+    <md-tooltip>
+        <span translate>Increase Priority</span>
+    </md-tooltip>
+  </md-button>
+
+  <md-button class="md-icon-button"
       aria-label="Decrease Priority"
       ng-if="stats.count > 1"
       ng-class="{ disabled: $last }"
-      ng-click="moveDown(agg)"
-      tooltip="Decrease Priority"
-      tooltip-append-to-body="true"
-      type="button"
-      class="btn btn-xs btn-default">
-      <i aria-hidden="true" class="mdi mdi-menu-down"></i>
-    </button>
+      ng-click="moveDown(agg)">
+    <md-icon md-font-set="mdi" md-font-icon="mdi-arrow-down" class="md-primary mdi-24px">
+    </md-icon>
 
-    <!-- remove button -->
-    <button
+    <md-tooltip>
+        <span translate>Decrease Priority</span>
+    </md-tooltip>
+  </md-button>
+
+  <md-button class="md-icon-button"
       ng-if="canRemove(agg)"
       aria-label="Remove Dimension"
       ng-if="stats.count > stats.min"
-      ng-click="remove(agg)"
-      tooltip="Remove Dimension"
-      tooltip-append-to-body="true"
-      type="button"
-      class="btn btn-xs btn-danger">
-      <i aria-hidden="true" class="mdi mdi-close"></i>
-    </button>
+      ng-click="remove(agg)">
+    <md-icon md-font-set="mdi" md-font-icon="mdi-close" class="md-warn mdi-24px">
+    </md-icon>
+
+    <md-tooltip>
+        <span translate>Remove Dimension</span>
+    </md-tooltip>
+  </md-button>
 
   </div>
 

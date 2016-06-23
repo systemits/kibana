@@ -1,37 +1,26 @@
-<div class="form-group">
-  <div ng-repeat="filter in agg.params.filters">
-    <div class="vis-editor-agg-header">
+<div ng-repeat="filter in agg.params.filters">
+  <div layout="row">
+    <md-input-container flex>
       <label>
           Filter {{$index + 1}}
           <span ng-if="filter.label">- {{ filter.label }}</span>
       </label>
 
-      <div class="btn-group">
-        <button
-          ng-click="showConfig = !showConfig"
-          type="button"
-          class="btn btn-default btn-xs">
-          <i class="mdi mdi-tag"></i>
-        </button>
-        <button
-          type="button"
-          ng-click="agg.params.filters.splice($index, 1)"
-          class="btn btn-danger btn-xs">
-          <i class="mdi mdi-close"></i>
-        </button>
-      </div>
-    </div>
-
-    <div class="form-group">
       <input
         parse-query
         ng-model="filter.input.query"
         type="text"
         class="form-control"
         name="filter{{$index}}">
-    </div>
+    </md-input-container>
 
-    <div class="form-group" ng-show="showConfig">
+    <md-button class="md-icon-button" ng-click="agg.params.filters.splice($index, 1)">
+      <md-icon md-font-set="mdi" md-font-icon="mdi-close" class="md-warn mdi-12px">
+      </md-icon>
+    </md-button>
+  </div>
+
+  <md-input-container class="md-block" ng-show="showConfig" flex>
       <label>Filter {{$index + 1}} label</label>
       <input
         ng-model="filter.label"
@@ -39,21 +28,28 @@
         type="text"
         class="form-control"
         name="label{{$index}}">
-    </div>
+  </md-input-container>
+
+  <div class="tg-hint-input" layout="row" layout-align="center center">
+    <md-button ng-click="showConfig = !showConfig" class="md-primary">
+      <span>Edit label</span>
+    </md-button>
   </div>
 </div>
 
 <input ng-model="agg.params.filters.length" name="filterLength" required min="1" type="number" class="ng-hide" />
-<div class="hintbox" ng-show="aggForm.filterLength.$invalid">
-  <p>
+
+<md-whiteframe ng-show="aggForm.filterLength.$invalid"
+    class="md-whiteframe-1dp" flex layout="column" layout-align="center center">
+  <span>
     <i class="mdi mdi-alert-circle text-danger"></i>
     <strong>Required:</strong> You must specify at least one filter.
-  </p>
-</div>
+  </span>
+</md-whiteframe>
 
-<div
-  click-focus="'filter'+(agg.params.filters.length-1)"
-  ng-click="agg.params.filters.push({input:{}})"
-  class="sidebar-item-button primary">
-  Add Filter
+<div layout="row" class="md-body-1" layout-align="center center">
+  <md-button ng-click="agg.params.filters.push({input:{}})"
+             class="md-primary md-raised">
+      <span>Add Filter</span>
+  </md-button>
 </div>

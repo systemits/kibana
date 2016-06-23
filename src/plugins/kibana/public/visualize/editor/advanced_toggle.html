@@ -1,6 +1,12 @@
 <div class="vis-editor-agg-editor-advanced-toggle">
-  <a ng-click="advancedToggled = !advancedToggled">
-    <i aria-hidden="true" class="mdi mdi-menu-down" ng-class="{'mdi mdi-menu-down': advancedToggled, 'mdi-menu-left': !advancedToggled}"></i>
-    Advanced
-  </a>
+  <md-button ng-click="advancedToggled = !advancedToggled">
+    <md-icon ng-show="!advancedToggled" md-font-set="mdi" md-font-icon="mdi-chevron-left" class="mdi-12px">
+    </md-icon>
+
+    <md-icon ng-show="advancedToggled" md-font-set="mdi" md-font-icon="mdi-chevron-down" class="mdi-12px">
+    </md-icon>
+
+    <span>Advanced</span>
+
+  </md-button>
 </div>

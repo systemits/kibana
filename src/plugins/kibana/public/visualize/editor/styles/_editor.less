@@ -86,6 +86,10 @@
 
     .sidebar-item {
       border-top: 0 !important;
+      background-color: #ffffff;
+      -webkit-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
+      box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
+      margin-bottom: 10px;
     }
 
     .sidebar-container {
@@ -116,17 +120,10 @@
     }
 
     .sidebar-item-title {
-      font-size: 20px;
-      font-weight: bold;
-      border: inherit !important;
-      background-color: @vis-editor-sidebar-title-bg;
+      font-size: 16px;
+      font-weight: 500;
       margin-bottom: @vis-editor-agg-editor-spacing;
-      padding: 2px 5px !important;
-    }
-
-    .sidebar-item-title:hover {
-      color: @vis-editor-sidebar-title-hover-color !important;
-      background-color: @vis-editor-sidebar-title-hover-bg !important;
+      text-transform: capitalize;
     }
 
     .hintbox {
@@ -172,9 +169,60 @@
 
     padding: @vis-editor-agg-editor-spacing;
 
+    div.tg-hint {
+      &-input {
+        margin-top: -48px;
+      }
+
+      &-textarea {
+        margin-top: -24px;
+      }
+
+      &-select {
+        margin-top: -18px;
+      }
+    }
+
+    div[class^="tg-hint"]{
+      md-icon {
+        height: 14px;
+      }
+
+      span.warning, span.warning *{
+        color: @brand-warning;
+      }
+
+      .md-button {
+        font-size: 12px;
+        margin-left: 0;
+      }
+    }
+
+    md-input-container.textarea {
+      margin-bottom: 0;
+    }
+
+    md-whiteframe {
+      padding: 16px;
+      margin-bottom: 16px;
+      background-color: #BBDEFB;
+    }
+
+    div[layout=row] button.md-icon-button {
+      padding-right: 0;
+      margin-right: 0;
+    }
+
     // wraps the .vis-editor-agg and nesting-indicator ^^
     &-wrapper {
       display: flex;
+
+      .schemaEditors .md-button {
+        margin: 0;
+        font-size: 10px;
+        min-height: 22px;
+        line-height: 22px;
+      }
     }
 
     &-group {
@@ -187,6 +235,11 @@
       align-items: center;
       flex: 1 0 auto;
       margin-bottom: @vis-editor-agg-editor-spacing;
+
+      .md-button.md-icon-button {
+        margin: 0;
+        padding: 0;
+      }
 
       &-toggle {
         flex: 0 0 auto;
@@ -216,6 +269,11 @@
 
       &-controls {
         flex: 0 0 auto;
+
+        .md-button.md-icon-button {
+          height: 24px;
+          width: 24px;
+        }
       }
     }
 
@@ -249,6 +307,14 @@
 
       &-advanced-toggle {
         text-align: right;
+
+        .md-button {
+          font-size: 12px;
+
+          md-icon {
+            height: 12px;
+          }
+        }
       }
     }
 
@@ -303,6 +369,11 @@
     &-add {
       .flex-parent();
 
+      &-btn .md-button {
+        margin: 18px 0;
+        font-size: 12px;
+      }
+
       &-subagg {
         margin-bottom: -@vis-editor-agg-editor-spacing - 1; // extra one pixel covers the aggs bottom border
         margin-right: -@vis-editor-agg-editor-spacing;
@@ -315,9 +386,11 @@
     }
 
     &-order-agg {
-      border: 2px solid;
-      border-color: @vis-editor-agg-editor-order-border;
-      border-radius: @border-radius-base;
+      // border: 2px solid;
+      // border-color: @vis-editor-agg-editor-order-border;
+      // border-radius: @border-radius-base;border: 2px solid;
+      // border-color: @vis-editor-agg-editor-order-border;
+      // border-radius: @border-radius-base;
       background-color: @vis-editor-agg-editor-order-bg;
       margin: @vis-editor-agg-editor-spacing;
       padding: @vis-editor-agg-editor-spacing;
@@ -370,6 +443,10 @@ vis-editor-agg-param,
 vis-editor-vis-options,
 vis-editor-vis-options > * {
   .flex-parent();
+}
+
+vis-agg-param-editor:last-child {
+  margin-bottom: 18px;
 }
 
 form.vis-share {

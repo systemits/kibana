@@ -1,11 +1,11 @@
+<li class="sidebar-item" attr-field="{{::field.name}}">
+  <div ng-click="toggleDetails(field)" class="sidebar-item-title">
+    <field-name field="field"></field-name>
 
-    <li class="sidebar-item" attr-field="{{::field.name}}">
-      <div ng-click="toggleDetails(field)" class="sidebar-item-title">
-        <field-name field="field"></field-name>
-        <button
-          ng-click="toggleDisplay(field)"
-          ng-class="::field.display ? 'btn-danger' : 'btn-primary'"
-          ng-bind="::field.display ? 'remove' : 'add'"
-          class="btn btn-xs btn-primary discover-field-toggle" ></button>
-      </div>
-    </li>
+    <md-button ng-click="toggleDisplay(field)"
+               ng-class="::field.display ? 'md-warn' : 'md-primary'"
+               class="md-raised discover-field-toggle">
+        <span ng-bind="::field.display ? 'remove' : 'add'"></span>
+    </md-button>
+  </div>
+</li>

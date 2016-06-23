@@ -1,25 +1,26 @@
 <div ng-controller="aggParam.controller">
-  <div class="form-group">
+  <md-input-container class="md-block">
     <label>Order By</label>
-    <select
+    <md-select
       name="orderBy"
       ng-model="agg.params.orderBy"
-      required
-      class="form-control">
-      <option
+      required>
+      <md-option
         ng-repeat="respAgg in responseValueAggs track by respAgg.id"
         value="{{respAgg.id}}"
         ng-selected="agg.params.orderBy === respAgg.id">
         metric: {{safeMakeLabel(respAgg)}}
-      </option>
-      <option value="custom" ng-selected="agg.params.orderBy === 'custom'">
+      </md-option>
+      <md-option value="custom" ng-selected="agg.params.orderBy === 'custom'">
         Custom Metric
-      </option>
-       <option value="_term" ng-selected="agg.params.orderBy === '_term'">
+      </md-option>
+       <md-option value="_term" ng-selected="agg.params.orderBy === '_term'">
         Term
-      </option>
-    </select>
-  </div>
+      </md-option>
+    </md-select>
+  </md-input-container>
+
+
   <div ng-show="agg.params.orderAgg" class="vis-editor-agg-order-agg">
     <vis-editor-agg-params
       agg="agg.params.orderAgg"

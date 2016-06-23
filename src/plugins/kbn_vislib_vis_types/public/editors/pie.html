@@ -1,9 +1,6 @@
-<!-- vis type specific options -->
-<div>
-  <label>
-    <input type="checkbox" value="{{isDonut}}" ng-model="vis.params.isDonut" name="isDonut" ng-checked="vis.params.isDonut">
-   Donut
-  </label>
-</div>
+<md-checkbox ng-model="vis.params.isDonut" name="isDonut"
+             value="{{isDonut}}" class="md-primary" aria-label="Donut">
+    Donut
+</md-checkbox>
 <vislib-basic-options></vislib-basic-options>
 

@@ -1,4 +1,4 @@
-require('ui/modules').get('kibana', ['ngMaterial'])
+require('ui/modules').get('kibana', ['ngMaterial', 'angular.filter'])
   .config(ngMaterialConfig);
 
 ngMaterialConfig.$inject = ['$mdIconProvider', '$mdThemingProvider'];

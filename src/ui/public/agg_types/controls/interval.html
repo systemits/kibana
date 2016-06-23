@@ -1,40 +1,52 @@
-<div class="form-group">
-  <label>
-    Interval
-    <kbn-info
-      ng-show="agg.buckets.getInterval().scaled"
-      placement="right"
-      class="text-warning"
-      info="This interval creates {{ agg.buckets.getInterval().scale > 1 ? 'buckets that are too large' : 'too many buckets' }} to show in the selected time range, so it has been scaled to {{ agg.buckets.getInterval().description }}">
-    </kbn-info>
-  </label>
-  <select
-    ng-if="aggParam.options"
+<md-input-container ng-if="aggParam.options" class="md-block">
+  <label>Interval</label>
+  <md-select
     ng-model="agg.params.interval"
     ng-change="agg.write()"
     required
-    ng-options="opt as opt.display for opt in aggParam.options.raw | filter: optionEnabled"
-    class="form-control"
     name="interval">
-    <option value="">-- select a valid interval --</option>
-  </select>
+    <md-option ng-value="">select a valid interval</md-option>
+
+    <md-option ng-repeat="opt in aggParam.options.raw | filter: optionEnabled" ng-value="opt">
+      {{ opt.display }}
+    </md-option>
+  </md-select>
+</md-input-container>
+
+<md-input-container ng-if="agg.params.interval.val == 'custom'" class="md-block">
+  <label>Custom Interval</label>
   <input
     type="text"
     name="customInterval"
     ng-model="agg.params.customInterval"
     validate-date-interval
     ng-change="aggForm.customInterval.$valid && agg.write()"
-    ng-if="agg.params.interval.val == 'custom'"
     class="form-control"
     required />
+</md-input-container>
+
+<md-input-container ng-if="!aggParam.options" class="md-block">
+  <label>Interval</label>
   <input
-    ng-if="!aggParam.options"
     ng-model="agg.params.interval"
     required
     type="number"
-    class="form-control"
     name="interval"
     min="0"
-    input-whole-number
-    >
+    input-whole-number>
+</md-input-container>
+
+<div class="tg-hint-select" ng-if="agg.buckets.getInterval().scaled">
+  <span class="warning"
+        ng-click="showBucketsWarning = !showBucketsWarning">
+    <md-icon md-font-set="mdi" md-font-icon="mdi-information" class="md-warn mdi-12px">
+    </md-icon>
+  </span>
+
+  <md-whiteframe ng-show="showBucketsWarning && agg.buckets.getInterval().scaled"
+    class="md-whiteframe-1dp" flex layout="column" layout-align="center center">
+      <span>
+      "This interval creates {{ agg.buckets.getInterval().scale > 1 ? 'buckets that are too large' : 'too many buckets' }} to show in the selected time range, so it has been scaled to {{ agg.buckets.getInterval().description }}"
+      </span>
+  </md-whiteframe>
 </div>
