@@ -48,7 +48,18 @@ app.directive('shareObjectUrl', function (Private, Notifier) {
         if ($scope.shareAsEmbed) {
           $scope.formattedUrl = `<iframe src="${$scope.url}" height="600" width="800"></iframe>`;
         } else {
-          $scope.formattedUrl = $scope.url;
+          let pathIndex = url.lastIndexOf('/');
+          let path = url.substring(pathIndex);
+
+          let encodedPath = '';
+          let formattedPath = $scope.shortGenerated ? '/goto' : '#';
+          let host = $location.host();
+
+          formattedPath += path;
+
+          encodedPath = encodeURIComponent(formattedPath);
+
+          $scope.formattedUrl = 'http://' + host + ':8080/#/analytics?path=' + encodedPath;
         }
 
         $scope.shortGenerated = false;
@@ -61,8 +72,9 @@ app.directive('shareObjectUrl', function (Private, Notifier) {
 
         urlShortener.shortenUrl($scope.url)
         .then(shortUrl => {
-          updateUrl(shortUrl);
           $scope.shortGenerated = true;
+
+          updateUrl(shortUrl);
         });
       };
 
