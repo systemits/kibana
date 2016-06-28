@@ -31,21 +31,22 @@
               </div>
             </form>
 
-            <div class="typeahead" kbn-typeahead="visualize" flex>
-              <form ng-if="vis.type.requiresSearch && !$state.linked"
-                    ng-submit="fetch()" name="queryInput" layout="row" flex>
+            <div class="typeahead" kbn-typeahead="visualize"
+                 ng-if="vis.type.requiresSearch && !$state.linked" flex>
+              <form ng-submit="fetch()" name="queryInput" layout="row" flex>
                 <md-icon md-font-set="mdi" md-font-icon="mdi-magnify" class="mdi-24px">
                 </md-icon>
-                  <div ng-class="queryInput.$invalid ? 'has-error' : ''" flex>
-                    <input
-                      ng-model="state.query"
-                      parse-query
-                      input-focus
-                      kbn-typeahead-input
-                      placeholder="Search..."
-                      aria-label="Search"
-                      type="text">
-                  </div>
+
+                <div ng-class="queryInput.$invalid ? 'has-error' : ''" flex>
+                  <input
+                    ng-model="state.query"
+                    parse-query
+                    input-focus
+                    kbn-typeahead-input
+                    placeholder="Search..."
+                    aria-label="Search"
+                    type="text">
+                </div>
               </form>
 
               <kbn-typeahead-items></kbn-typeahead-items>

@@ -5,16 +5,17 @@
             <form ng-submit="fetch()" name="discoverSearch" layout="row" flex>
               <md-icon md-font-set="mdi" md-font-icon="mdi-magnify" class="mdi-24px">
               </md-icon>
-                <div ng-class="discoverSearch.$invalid ? 'has-error' : ''" flex>
-                  <input
-                    input-focus
-                    parse-query
-                    kbn-typeahead-input
-                    ng-model="state.query"
-                    placeholder="Search..."
-                    aria-label="Search input"
-                    type="text" flex>
-                </div>
+
+              <div ng-class="discoverSearch.$invalid ? 'has-error' : ''" flex>
+                <input
+                  input-focus
+                  parse-query
+                  kbn-typeahead-input
+                  ng-model="state.query"
+                  placeholder="Search..."
+                  aria-label="Search input"
+                  type="text" flex>
+              </div>
             </form>
 
             <kbn-typeahead-items></kbn-typeahead-items>

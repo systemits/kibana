@@ -6,17 +6,18 @@
             <form ng-submit="filterResults()" name="queryInput" layout="row" flex>
               <md-icon md-font-set="mdi" md-font-icon="mdi-magnify" class="mdi-24px">
               </md-icon>
-                <div ng-class="queryInput.$invalid ? 'has-error' : ''" flex>
-                  <input
-                    type="text"
-                    placeholder="Filter..."
-                    aria-label="Filter input"
-                    class="form-control"
-                    ng-model="state.query"
-                    input-focus
-                    kbn-typeahead-input
-                    parse-query>
-                </div>
+
+              <div ng-class="queryInput.$invalid ? 'has-error' : ''" flex>
+                <input
+                  type="text"
+                  placeholder="Filter..."
+                  aria-label="Filter input"
+                  class="form-control"
+                  ng-model="state.query"
+                  input-focus
+                  kbn-typeahead-input
+                  parse-query>
+              </div>
             </form>
 
             <kbn-typeahead-items></kbn-typeahead-items>
