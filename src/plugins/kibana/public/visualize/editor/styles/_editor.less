@@ -131,12 +131,23 @@
       margin-bottom: @vis-editor-agg-editor-spacing;
     }
 
+    md-whiteframe {
+      padding: 16px;
+      margin-bottom: 16px;
+      background-color: #BBDEFB;
+    }
+
     label {
       flex: 2 0 0;
       white-space: nowrap;
       text-overflow: ellipsis;
       overflow: hidden;
       margin-bottom: 0;
+      color: rgba(0,0,0,0.54);
+    }
+
+    md-slider-container {
+      width: 100%;
     }
   }
 
@@ -169,43 +180,8 @@
 
     padding: @vis-editor-agg-editor-spacing;
 
-    div.tg-hint {
-      &-input {
-        margin-top: -48px;
-      }
-
-      &-textarea {
-        margin-top: -24px;
-      }
-
-      &-select {
-        margin-top: -18px;
-      }
-    }
-
-    div[class^="tg-hint"]{
-      md-icon {
-        height: 14px;
-      }
-
-      span.warning, span.warning *{
-        color: @brand-warning;
-      }
-
-      .md-button {
-        font-size: 12px;
-        margin-left: 0;
-      }
-    }
-
     md-input-container.textarea {
       margin-bottom: 0;
-    }
-
-    md-whiteframe {
-      padding: 16px;
-      margin-bottom: 16px;
-      background-color: #BBDEFB;
     }
 
     div[layout=row] button.md-icon-button {

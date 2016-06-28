@@ -1,4 +1,12 @@
-<div class="form-group">
-  <label>Font Size - {{ vis.params.fontSize }}pt</label>
-  <input type="range" ng-model="vis.params.fontSize" class="form-control" min="12" max="120" />
+<label>Font Size</label>
+
+<div class="vis-editor-agg-form-row">
+  <md-slider-container>
+    <md-slider flex min="12" max="120" ng-model="vis.params.fontSize" aria-label="Font Size">
+    </md-slider>
+  </md-slider-container>
+
+  <div class="vis-editor-agg-form-value">
+    {{ vis.params.fontSize }}pt
+  </div>
 </div>

@@ -1,9 +1,13 @@
 <!-- vis type specific options -->
-<div class="vis-option-item form-group">
-  <label>
-    Bar Mode
-  </label>
-  <select class="form-control" ng-model="vis.params.mode" ng-options="mode for mode in vis.type.params.modes"></select>
-</div>
+<md-input-container class="md-block">
+    <label>Bar Mode</label>
+
+    <md-select ng-model="vis.params.mode">
+      <md-option ng-repeat="mode in vis.type.params.modes" ng-value="mode">
+        {{mode}}
+      </md-option>
+    </md-select>
+</md-input-container>
+
 <point-series-options></point-series-options>
 <vislib-basic-options></vislib-basic-options>

@@ -1,7 +1,15 @@
-<div class="markdown-vis-options form-group">
-  <div>
+<md-input-container class="textarea md-block">
     <label>Markdown</label>
-    <small class="pull-right"><a target="_window" href="https://help.github.com/articles/github-flavored-markdown/">Help <i aria-hidden="true" class="mdi mdi-link"></i></a></small>
-  </div>
-  <textarea ng-model="vis.params.markdown" class="form-control" rows="20"></textarea>
+
+    <textarea ng-model="vis.params.markdown" class="form-control"></textarea>
+</md-input-container>
+
+<div class="tg-hint-input">
+    <md-button href="https://help.github.com/articles/github-flavored-markdown/" target="_blank" class="md-primary">
+      <span>Help</span>
+
+      <md-icon md-font-set="mdi" md-font-icon="mdi-launch" class="mdi-12px">
+      </md-icon>
+    </md-button>
 </div>
+

@@ -1,9 +1,13 @@
-<div layout="row" class="md-body-1" layout-align="start center">
+<div layout="row" class="md-body-1" layout-align="start start">
   <md-checkbox ng-model="agg.params.min_doc_count"
                class="md-primary" aria-label="Show empty buckets">
       Show empty buckets
-    <md-tooltip md-direction="right">
-      <span translate>Show all buckets, not only the buckets with results.</span>
-    </md-tooltip>
   </md-checkbox>
+
+  <md-icon md-font-set="mdi" md-font-icon="mdi-information" class="mdi-12px checkbox-info">
+    <md-tooltip md-direction="right">
+      <span>Show all buckets, not only the buckets with results.
+      </span>
+    </md-tooltip>
+  </md-icon>
 </div>

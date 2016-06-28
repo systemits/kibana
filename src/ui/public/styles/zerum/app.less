@@ -1,7 +1,48 @@
+@import (reference) "~ui/styles/variables";
+
 *:focus {
     outline: none;
 }
 
 md-option .md-text {
     font-size: 14px;
+}
+
+md-icon.mdi-12px {
+  height: 12px;
+  width: 12px;
+}
+
+md-icon.mdi-12px.checkbox-info {
+  margin: 3px 0px 0px 8px;
+}
+
+div.tg-hint {
+  &-input {
+    margin-top: -44px;
+  }
+
+  &-textarea {
+    margin-top: -24px;
+  }
+
+  &-select {
+    margin-top: -18px;
+  }
+}
+
+div[class^="tg-hint"]{
+  md-icon {
+    height: 14px;
+  }
+
+  span.warning, span.warning *{
+    color: @brand-warning;
+  }
+
+  .md-button {
+    font-size: 12px;
+    margin-left: 0;
+    min-width: 0;
+  }
 }
