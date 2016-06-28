@@ -1,32 +1,40 @@
 <!-- vis type specific options -->
-<div class="form-group">
-  <label>Map type</label>
-    <select name="agg"
-    class="form-control"
-    ng-model="vis.params.mapType"
-    ng-init="vis.params.mapType || vis.type.params.mapTypes[0]"
-    ng-options="mapType as mapType for mapType in vis.type.params.mapTypes"
-    >
-  </select>
-</div>
+<md-input-container class="md-block">
+    <label>Map type</label>
+
+    <md-select
+      name="agg"
+      ng-model="vis.params.mapType"
+      ng-init="vis.params.mapType || vis.type.params.mapTypes[0]">
+      <md-option ng-repeat="mapType in vis.type.params.mapTypes" ng-value="mapType">
+        {{mapType}}
+      </md-option>
+    </md-select>
+</md-input-container>
 
 <div ng-if="vis.params.mapType === 'Heatmap'" class="form-group">
   <div>
     <label>
-      Radius
-      &nbsp;<kbn-info placement="right" info="Size of heatmap dots. Default: 25"></kbn-info>
+      Radius &nbsp;
+
+      <md-icon md-font-set="mdi" md-font-icon="mdi-information" class="mdi-12px">
+        <md-tooltip md-direction="right">
+          <span>Size of heatmap dots. Default: 25</span>
+        </md-tooltip>
+      </md-icon>
     </label>
+
     <div class="vis-editor-agg-form-row">
-      <input
-        name="heatRadius"
-        ng-model="vis.params.heatRadius"
-        required
-        class="form-control"
-        type="range"
-        min="5"
-        max="50"
-        step="1"
-        >
+      <md-slider-container>
+        <md-slider
+          name="heatRadius"
+          ng-model="vis.params.heatRadius"
+          min="5"
+          max="50"
+          step="1"
+          aria-label="Radius">
+        </md-slider>
+      </md-slider-container>
       <div class="form-group vis-editor-agg-form-value">
         {{vis.params.heatRadius}}
       </div>
@@ -34,20 +42,27 @@
   </div>
   <div>
     <label>
-      Blur
-      &nbsp;<kbn-info placement="right" info="Amount of blur applied to dots. Default: 15"></kbn-info>
+      Blur &nbsp;
+
+      <md-icon md-font-set="mdi" md-font-icon="mdi-information" class="mdi-12px">
+        <md-tooltip md-direction="right">
+          <span>Amount of blur applied to dots. Default: 15</span>
+        </md-tooltip>
+      </md-icon>
     </label>
+
     <div class="vis-editor-agg-form-row">
-      <input
+      <md-slider-container>
+        <md-slider
         name="heatBlur"
         ng-model="vis.params.heatBlur"
-        required
-        class="form-control"
-        type="range"
         min="1"
         max="25"
         step="1"
-        >
+          aria-label="Blur">
+        </md-slider>
+      </md-slider-container>
+
       <div class="form-group vis-editor-agg-form-value">
         {{vis.params.heatBlur}}
       </div>
@@ -55,20 +70,27 @@
   </div>
   <div>
     <label>
-      Maximum zoom
-      &nbsp;<kbn-info placement="right" info="Map zoom at which all dots are displayed at full intensity. Default: 16"></kbn-info>
+      Maximum zoom &nbsp;
+
+      <md-icon md-font-set="mdi" md-font-icon="mdi-information" class="mdi-12px">
+        <md-tooltip md-direction="right">
+          <span>Map zoom at which all dots are displayed at full intensity. Default: 16</span>
+        </md-tooltip>
+      </md-icon>
     </label>
+
     <div class="vis-editor-agg-form-row">
-      <input
-        name="heatMaxZoom"
-        ng-model="vis.params.heatMaxZoom"
-        required
-        class="form-control"
-        type="range"
-        min="1"
-        max="18"
-        step="1"
-        >
+      <md-slider-container>
+        <md-slider
+          name="heatMaxZoom"
+          ng-model="vis.params.heatMaxZoom"
+          min="1"
+          max="18"
+          step="1"
+          aria-label="Maximum zoom">
+        </md-slider>
+      </md-slider-container>
+
       <div class="vis-editor-agg-form-value">
         {{vis.params.heatMaxZoom}}
       </div>
@@ -76,122 +98,195 @@
   </div>
   <div>
     <label>
-      Minimum opacity
-      &nbsp;<kbn-info placement="right" info="Minimum opacity of dots. Default: 0.1"></kbn-info>
+      Minimum opacity &nbsp;
+
+      <md-icon md-font-set="mdi" md-font-icon="mdi-information" class="mdi-12px">
+        <md-tooltip md-direction="right">
+          <span>Minimum opacity of dots. Default: 0.1</span>
+        </md-tooltip>
+      </md-icon>
     </label>
+
     <div class="vis-editor-agg-form-row">
-      <input
-        name="heatMinOpacity"
-        ng-model="vis.params.heatMinOpacity"
-        required
-        class="form-control"
-        type="range"
-        min="0"
-        max="1.0"
-        step="0.01"
-        >
+      <md-slider-container>
+        <md-slider
+          name="heatMinOpacity"
+          ng-model="vis.params.heatMinOpacity"
+          min="0"
+          max="1.0"
+          step="0.01"
+          aria-label="Minimum opacity">
+        </md-slider>
+      </md-slider-container>
+
       <div class="vis-editor-agg-form-value">
         {{vis.params.heatMinOpacity}}
       </div>
     </div>
   </div>
 
-  <div class="form-group">
-    <label>
-      <input type="checkbox" ng-model="vis.params.addTooltip">
-      Show Tooltip
-    </label>
+  <div>
+    <md-checkbox ng-model="vis.params.addTooltip" class="md-primary" aria-label="Show Tooltip">
+        Show Tooltip
+    </md-checkbox>
   </div>
 </div>
 
-<div class="vis-option-item form-group">
-  <label>
-    <input type="checkbox"
-    name="isDesaturated"
-    ng-disabled="!vis.type.params.canDesaturate"
-    ng-model="vis.params.isDesaturated">
+<div layout="row" layout-align="start start">
+  <md-checkbox
+      name="isDesaturated"
+      ng-disabled="!vis.type.params.canDesaturate"
+      ng-model="vis.params.isDesaturated"
+      class="md-primary" aria-label="Desaturate map tiles">
+      Desaturate map tiles
+  </md-checkbox>
 
-    Desaturate map tiles
-
-    <kbn-info info="Reduce the vibrancy of tile colors, this does not work in any version of Internet Explorer"></kbn-info>
-  </label>
+  <md-icon md-font-set="mdi" md-font-icon="mdi-information" class="mdi-12px checkbox-info">
+    <md-tooltip md-direction="right">
+      <span>Reduce the vibrancy of tile colors, this does not work in any version of Internet Explorer
+      </span>
+    </md-tooltip>
+  </md-icon>
 </div>
 
-<div class="vis-option-item form-group">
-  <label>
-    <input type="checkbox"
-    name="wms.enabled"
-    ng-model="vis.params.wms.enabled">
+<div layout="row" layout-align="start start">
+  <md-checkbox
+      name="wms.enabled"
+      ng-model="vis.params.wms.enabled"
+      class="md-primary" aria-label="Desaturate map tiles">
+      WMS compliant map server
+  </md-checkbox>
 
-    WMS compliant map server
-
-    <kbn-info info="Use WMS compliant map tile server. For advanced users only."></kbn-info>
-  </label>
+  <md-icon md-font-set="mdi" md-font-icon="mdi-information" class="mdi-12px checkbox-info">
+    <md-tooltip md-direction="right">
+      <span>Use WMS compliant map tile server. For advanced users only.
+      </span>
+    </md-tooltip>
+  </md-icon>
 </div>
 
 <div ng-show="vis.params.wms.enabled" class="well">
-  <div class="vis-option-item form-group">
+  <p>
+    WMS maps are 3rd party mapping services that have not been verified to work with Analytics.
+    These should be considered expert settings.
+  </p>
 
-    <p>
-      WMS maps are 3rd party mapping services that have not been verified to work with Analytics.
-      These should be considered expert settings.
-    </p>
-
+  <md-input-container class="md-block">
     <label>
-      WMS url*
+      WMS url *
     </label>
     <input type="text" class="form-control"
       name="wms.url"
       ng-model="vis.params.wms.url">
-  </div>
+  </md-input-container>
 
-  <div class="vis-option-item form-group">
+  <md-input-container class="md-block">
     <label>
-      WMS layers* <kbn-info info="A comma seperated list of layers to use."></kbn-info>
+      WMS layers *
     </label>
     <input type="text" class="form-control"
       ng-require="vis.params.wms.enabled"
       ng-model="vis.params.wms.options.layers"
       name="wms.options.layers">
+  </md-input-container>
+
+  <div class="tg-hint-input">
+    <md-icon ng-click="showLayersHint = !showLayersHint"
+      md-font-set="mdi" md-font-icon="mdi-information" class="mdi-12px">
+    </md-icon>
+
+    <md-whiteframe ng-show="showLayersHint" class="md-whiteframe-1dp" flex layout layout-align="center center">
+      <span>
+        A comma seperated list of layers to use.
+      </span>
+    </md-whiteframe>
   </div>
 
-  <div class="vis-option-item form-group">
+  <md-input-container class="md-block">
     <label>
-      WMS version* <kbn-info info="The version of WMS the server supports"></kbn-info>
+      WMS version *
     </label>
     <input type="text" class="form-control"
       name="wms.options.version"
       ng-model="vis.params.wms.options.version">
+  </md-input-container>
+
+  <div class="tg-hint-input">
+    <md-icon ng-click="showVersionHint = !showVersionHint"
+      md-font-set="mdi" md-font-icon="mdi-information" class="mdi-12px">
+    </md-icon>
+
+    <md-whiteframe ng-show="showVersionHint" class="md-whiteframe-1dp" flex layout layout-align="center center">
+      <span>
+        The version of WMS the server supports
+      </span>
+    </md-whiteframe>
   </div>
 
-  <div class="vis-option-item form-group">
+  <md-input-container class="md-block">
     <label>
-      WMS format* <kbn-info info="Usually image/png or image/jpeg. Use png if the server will return transparent layers"></kbn-info>
+      WMS format *
     </label>
     <input type="text" class="form-control"
       name="wms.options.format"
       ng-model="vis.params.wms.options.format">
+  </md-input-container>
+
+  <div class="tg-hint-input">
+    <md-icon ng-click="showFormatHint = !showFormatHint"
+      md-font-set="mdi" md-font-icon="mdi-information" class="mdi-12px">
+    </md-icon>
+
+    <md-whiteframe ng-show="showFormatHint" class="md-whiteframe-1dp" flex layout layout-align="center center">
+      <span>
+        Usually image/png or image/jpeg. Use png if the server will return transparent layers.
+      </span>
+    </md-whiteframe>
   </div>
 
-  <div class="vis-option-item form-group">
+  <md-input-container class="md-block">
     <label>
-      WMS attribution <kbn-info info="Attribution string for the lower right corner<"></kbn-info>
+      WMS attribution
     </label>
     <input type="text" class="form-control"
       name="wms.options.attribution"
       ng-model="vis.params.wms.options.attribution">
+  </md-input-container>
+
+  <div class="tg-hint-input">
+    <md-icon ng-click="showAttributionHint = !showAttributionHint"
+      md-font-set="mdi" md-font-icon="mdi-information" class="mdi-12px">
+    </md-icon>
+
+    <md-whiteframe ng-show="showAttributionHint" class="md-whiteframe-1dp" flex layout layout-align="center center">
+      <span>
+        Attribution string for the lower right corner.
+      </span>
+    </md-whiteframe>
   </div>
 
-  <div class="vis-option-item form-group">
+  <md-input-container class="md-block">
     <label>
-      WMS styles* <kbn-info info="A comma seperated list of WMS server supported styles to use. Blank in most cases."></kbn-info>
+      WMS styles *
     </label>
     <input type="text" class="form-control"
       name="wms.options.styles"
       ng-model="vis.params.wms.options.styles">
+  </md-input-container>
+
+  <div class="tg-hint-input">
+    <md-icon ng-click="showStylesHint = !showStylesHint"
+      md-font-set="mdi" md-font-icon="mdi-information" class="mdi-12px">
+    </md-icon>
+
+    <md-whiteframe ng-show="showStylesHint" class="md-whiteframe-1dp" flex layout layout-align="center center">
+      <span>
+        A comma seperated list of WMS server supported styles to use. Blank in most cases.
+      </span>
+    </md-whiteframe>
   </div>
 
+  <br>
+
   <p>* if this parameter is incorrect, maps will fail to load.</p>
-
-
 </div>

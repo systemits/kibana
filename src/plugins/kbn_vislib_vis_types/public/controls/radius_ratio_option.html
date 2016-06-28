@@ -1,10 +1,13 @@
-<div>
-  <label>
-    Dot Size Ratio:
-    <kbn-info
-      placement="right"
-      info="Change the ratio of the radius of the smallest point to the largest point.">
-    </kbn-info>
-  </label>
-  <input type="range" step="2" min="1" max="100" class="form-control" ng-model="vis.params.radiusRatio" />
-</div>
+<label>
+  Dot Size Ratio: &nbsp;
+  <md-icon md-font-set="mdi" md-font-icon="mdi-information" class="mdi-12px">
+    <md-tooltip md-direction="right">
+      <span>Change the ratio of the radius of the smallest point to the largest point.</span>
+    </md-tooltip>
+  </md-icon>
+</label>
+
+<md-slider-container>
+  <md-slider flex step="2" min="1" max="100" ng-model="vis.params.radiusRatio" aria-label="Dot Size Ratio">
+  </md-slider>
+</md-slider-container>

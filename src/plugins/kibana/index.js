@@ -32,10 +32,11 @@ module.exports = function (kibana) {
           'ui/agg_response',
           'ui/agg_types',
           'leaflet',
-          'angular-material',
           'angular-animate',
           'angular-aria',
-          'angular-filter'
+          'angular-filter',
+          'angular-material',
+          'angular-messages'
         ),
 
         injectVars: function (server, options) {
