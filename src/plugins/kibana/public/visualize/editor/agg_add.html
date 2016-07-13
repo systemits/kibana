@@ -16,13 +16,13 @@
   ng-init="add.form = stats.count < 1 ? !add.form : add.form"
   class="vis-editor-agg-add-btn" layout="row" layout-align="center center">
   <md-button ng-click="add.form = !add.form" ng-if="!add.form"
-             class="md-raised">
+             class="md-raised" aria-label="Add">
       <span>Add </span>
       <span ng-if="groupName === 'buckets' && stats.count > 0">sub-</span><span>{{ groupName }}</span>
   </md-button>
 
   <md-button ng-click="add.form = !add.form" ng-if="add.form"
-             class="md-raised">
+             class="md-raised" aria-label="Cancel">
       <span>Cancel</span>
   </md-button>
 </div>

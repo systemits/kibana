@@ -5,7 +5,7 @@
       name="agg"
       ng-model="agg.type"
       auto-select-if-only-one="aggTypeOptions | aggFilter:agg.schema.aggFilter"
-      required>
+      aria-label="Select aggregation" required>
     <md-option ng-repeat="agg in aggTypeOptions | aggFilter:agg.schema.aggFilter"
                ng-value="agg">
       {{agg.title}}

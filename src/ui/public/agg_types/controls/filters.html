@@ -14,7 +14,7 @@
         name="filter{{$index}}">
     </md-input-container>
 
-    <md-button class="md-icon-button" ng-click="agg.params.filters.splice($index, 1)">
+    <md-button class="md-icon-button" ng-click="agg.params.filters.splice($index, 1)" aria-label="Close">
       <md-icon md-font-set="mdi" md-font-icon="mdi-close" class="md-warn mdi-12px">
       </md-icon>
     </md-button>
@@ -31,7 +31,7 @@
   </md-input-container>
 
   <div class="tg-hint-input" layout="row" layout-align="center center">
-    <md-button ng-click="showConfig = !showConfig" class="md-primary">
+    <md-button ng-click="showConfig = !showConfig" class="md-primary" aria-label="Edit Label">
       <span>Edit label</span>
     </md-button>
   </div>
@@ -49,7 +49,7 @@
 
 <div layout="row" class="md-body-1" layout-align="center center">
   <md-button ng-click="agg.params.filters.push({input:{}})"
-             class="md-primary md-raised">
+             class="md-primary md-raised" aria-label="Add Filter">
       <span>Add Filter</span>
   </md-button>
 </div>

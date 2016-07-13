@@ -1,12 +1,12 @@
 <div>
   <div layout="row" class="md-body-1" layout-align="center center">
       <md-button ng-click="agg.params.ipRangeType = 'fromTo'"
-             ng-show="agg.params.ipRangeType == 'mask'" class="md-primary">
+             ng-show="agg.params.ipRangeType == 'mask'" class="md-primary" aria-label="Use From/To">
         <span>Use From/To</span>
       </md-button>
 
       <md-button ng-click="agg.params.ipRangeType = 'mask'"
-           ng-show="agg.params.ipRangeType != 'mask'" class="md-primary">
+           ng-show="agg.params.ipRangeType != 'mask'" class="md-primary" aria-label="Use CIDR Masks">
         <span>Use CIDR Masks</span>
       </md-button>
   </div>
@@ -34,7 +34,8 @@
           name="range.to" />
       </md-input-container>
 
-      <md-button class="md-icon-button" ng-click="agg.params.ranges.fromTo.splice($index, 1)">
+      <md-button class="md-icon-button" ng-click="agg.params.ranges.fromTo.splice($index, 1)"
+                 aria-label="Close">
         <md-icon md-font-set="mdi" md-font-icon="mdi-close" class="md-warn mdi-12px">
         </md-icon>
       </md-button>
@@ -52,7 +53,7 @@
 
     <div layout="row" class="md-body-1" layout-align="center center">
       <md-button ng-click="agg.params.ranges.fromTo.push({})"
-                 class="md-primary md-raised">
+                 class="md-primary md-raised" aria-label="Add Range">
           <span>Add Range</span>
       </md-button>
     </div>
@@ -71,7 +72,7 @@
           name="range.from" />
       </md-input-container>
 
-      <md-button class="md-icon-button" ng-click="agg.params.ranges.mask.splice($index, 1)">
+      <md-button class="md-icon-button" ng-click="agg.params.ranges.mask.splice($index, 1)" aria-label="Close">
         <md-icon md-font-set="mdi" md-font-icon="mdi-close" class="md-warn mdi-12px">
         </md-icon>
       </md-button>
@@ -89,7 +90,7 @@
 
     <div layout="row" class="md-body-1" layout-align="center center">
       <md-button ng-click="agg.params.ranges.mask.push({})"
-                 class="md-primary md-raised">
+                 class="md-primary md-raised" aria-label="Add Range">
           <span>Add Range</span>
       </md-button>
     </div>

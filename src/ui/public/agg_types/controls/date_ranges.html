@@ -19,7 +19,7 @@
             name="range.to" />
         </md-input-container>
 
-        <md-button class="md-icon-button" ng-click="agg.params.ranges.splice($index, 1)">
+        <md-button class="md-icon-button" ng-click="agg.params.ranges.splice($index, 1)" aria-label="Close">
           <md-icon md-font-set="mdi" md-font-icon="mdi-close" class="md-warn mdi-12px">
           </md-icon>
         </md-button>
@@ -27,7 +27,8 @@
     </div>
 
     <div class="tg-hint-input" ng-show="agg.params.ranges.length">
-      <md-button href="http://www.elastic.co/guide/en/elasticsearch/reference/current/mapping-date-format.html#date-math" target="_blank" class="md-primary">
+      <md-button href="http://www.elastic.co/guide/en/elasticsearch/reference/current/mapping-date-format.html#date-math"
+                 target="_blank" class="md-primary" aria-label="Accepted Date Formats">
         <span>Accepted Date Formats</span>
 
         <md-icon md-font-set="mdi" md-font-icon="mdi-launch" class="mdi-12px">
@@ -47,7 +48,7 @@
 
     <div layout="row" class="md-body-1" layout-align="center center">
       <md-button ng-click="agg.params.ranges.push({})"
-                 class="md-primary md-raised">
+                 class="md-primary md-raised" aria-label="Add Range">
           <span>Add Range</span>
       </md-button>
     </div>

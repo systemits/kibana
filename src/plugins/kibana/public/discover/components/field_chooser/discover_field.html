@@ -4,7 +4,8 @@
 
     <md-button ng-click="toggleDisplay(field)"
                ng-class="::field.display ? 'md-warn' : 'md-primary'"
-               class="md-raised discover-field-toggle">
+               class="md-raised discover-field-toggle"
+               aria-label="Toggle Field">
         <span ng-bind="::field.display ? 'remove' : 'add'"></span>
     </md-button>
   </div>
