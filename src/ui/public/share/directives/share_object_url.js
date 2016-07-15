@@ -48,18 +48,33 @@ app.directive('shareObjectUrl', function (Private, Notifier) {
         if ($scope.shareAsEmbed) {
           $scope.formattedUrl = `<iframe src="${$scope.url}" height="600" width="800"></iframe>`;
         } else {
-          let pathIndex = url.lastIndexOf('/');
-          let path = url.substring(pathIndex);
-
-          let encodedPath = '';
-          let formattedPath = $scope.shortGenerated ? '/goto' : '#';
           let host = $location.host();
+          let queryParam = '';
+          let encodedPath = '';
 
-          formattedPath += path;
+          if ($scope.shortGenerated === true) {
+            let shortPathIndex = url.lastIndexOf('/');
 
-          encodedPath = encodeURIComponent(formattedPath);
+            let shortPath = url.substring(shortPathIndex + 1);
 
-          $scope.formattedUrl = 'http://' + host + ':8080/#/analytics?path=' + encodedPath;
+            encodedPath = encodeURIComponent(shortPath);
+
+            queryParam = '?shortPath=';
+          } else {
+            let locationPath = $location.path();
+
+            let paramsIndex = url.indexOf('?');
+
+            let params = url.substring(paramsIndex);
+
+            let formattedPath = '#' + locationPath + params;
+
+            encodedPath = encodeURIComponent(formattedPath);
+
+            queryParam = '?path=';
+          }
+
+          $scope.formattedUrl = 'http://' + host + ':8080/#/analytics' + queryParam + encodedPath;
         }
 
         $scope.shortGenerated = false;
