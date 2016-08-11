@@ -6,6 +6,7 @@ define(function (require) {
   let moment = require('moment');
 
   require('ui/directives/input_datetime');
+  require('ui/directives/input_time');
   require('ui/directives/inequality');
   require('ui/timepicker/quick_ranges');
   require('ui/timepicker/refresh_intervals');
@@ -18,21 +19,21 @@ define(function (require) {
       scope: {
         from: '=',
         to: '=',
-        mode: '=',
+        tab: '=',
         interval: '=',
         activeTab: '='
       },
       template: html,
       controller: function ($scope) {
         let init = function () {
-          $scope.setMode($scope.mode);
+          $scope.setTab($scope.tab);
         };
 
         $scope.format = 'MMMM Do YYYY, HH:mm:ss.SSS';
-        $scope.modes = ['quick', 'relative', 'absolute'];
+        $scope.tabs = ['quick', 'relative', 'absolute'];
         $scope.activeTab = $scope.activeTab || 'filter';
 
-        if (_.isUndefined($scope.mode)) $scope.mode = 'quick';
+        if (_.isUndefined($scope.tab)) $scope.tab = 'quick';
 
         $scope.quickLists = _(quickRanges).groupBy('section').values().value();
         $scope.refreshLists = _(refreshIntervals).groupBy('section').values().value();
@@ -44,10 +45,22 @@ define(function (require) {
           round: false
         };
 
-        $scope.absolute = {
-          from: moment(),
-          to: moment()
+        let getAbsoulteRangeFields = function (from, to) {
+          return {
+            date: {
+              from: moment(from).toDate(),
+              to: moment(to).toDate()
+            },
+            time: {
+              from: moment(from).valueOf(),
+              to: moment(to).valueOf()
+            }
+          };
         };
+
+        $scope.absolute = getAbsoulteRangeFields();
+
+        $scope.today = moment().toDate();
 
         $scope.units = timeUnits;
 
@@ -61,16 +74,18 @@ define(function (require) {
           {text: 'Years ago', value: 'y'},
         ];
 
-        $scope.$watch('absolute.from', function (date) {
-          if (_.isDate(date)) $scope.absolute.from = moment(date);
-        });
+        $scope.configureAbsoluteRange = function (absolute) {
+          let startDay = moment(absolute.time.from).startOf('day').valueOf();
+          let endDay = moment(absolute.time.to).startOf('day').valueOf();
+          let startTime = moment.duration(moment(absolute.time.from).diff(moment(startDay)));
+          let endTime = moment.duration(moment(absolute.time.to).diff(moment(endDay)));
 
-        $scope.$watch('absolute.to', function (date) {
-          if (_.isDate(date)) $scope.absolute.to = moment(date);
-        });
+          absolute.from = moment(absolute.date.from).startOf('day').add(startTime);
+          absolute.to = moment(absolute.date.to).startOf('day').add(endTime);
+        };
 
-        $scope.setMode = function (thisMode) {
-          switch (thisMode) {
+        $scope.setTab = function (thisTab) {
+          switch (thisTab) {
             case 'quick':
               break;
             case 'relative':
@@ -103,12 +118,11 @@ define(function (require) {
 
               break;
             case 'absolute':
-              $scope.absolute.from = dateMath.parse($scope.from || moment().subtract('minutes', 15));
-              $scope.absolute.to = dateMath.parse($scope.to || moment(), true);
+              $scope.absolute = getAbsoulteRangeFields(dateMath.parse($scope.from).valueOf(), dateMath.parse($scope.to).valueOf());
               break;
           }
 
-          $scope.mode = thisMode;
+          $scope.tab = thisTab;
         };
 
         $scope.setQuick = function (from, to, description) {
