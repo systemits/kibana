@@ -1,225 +1,189 @@
-<div class="kbn-timepicker">
-  <style>
-    .kbn-timepicker [kbn-time-input] {
-      text-align: center;
-    }
-    .kbn-timepicker-modes {
-      text-transform: capitalize;
-    }
-    .kbn-timepicker-section {
-      float: left;
-      padding: 0px 15px;
-    }
-    .kbn-refresh-section {
-      float: left;
-      padding: 0px 15px;
-    }
-    .kbn-timepicket-alert {
-      width: 100px;
-    }
-  </style>
-
-  <div class="tg-filter-time-picker" ng-show="activeTab === 'filter'" role="tabpanel">
-      <div class="md-padding tg-section-toolbar">
-          Time range filter
-      </div>
-
-      <md-content layout-fill>
-          <md-tabs md-selected="selectedTab" md-dynamic-height md-border-bottom>
-              <md-tab label="quick" md-on-select="setTab('quick')">
-                  <md-content class="md-padding">
-                      <div layout="row" layout-xs="column" class="tg-filter-quick-range">
-                          <md-list ng-repeat="list in quickLists">
-                              <md-list-item ng-repeat="option in list" ng-click="setQuick(option.from, option.to)">
-                                  <p>{{ option.display }}</p>
-                              </md-list-item>
-                          </md-list>
-                      </div>
-                  </md-content>
-              </md-tab>
-
-              <md-tab label="relative" md-on-select="setTab('relative')">
-                  <md-content class="md-padding">
-                      <form ng-submit="applyRelative()" name="relativeTime"
-                            layout="column" class="tg-filter-relative-range" novalidate>
-
-                           <p class="md-body-2">
-                            From:
-                            <span ng-show="relative.preview">{{relative.preview}}</span>
-                            <span ng-hide="relative.preview"><i>Invalid Expression</i></span>
-                          </p>
-
-                          <div layout="row">
-                              <md-input-container flex="15">
-                                  <input
-                                      name="rangeValue"
-                                      required
-                                      ng-model="relative.count"
-                                      ng-change="formatRelative()"
-                                      greater-than="-1"
-                                      type="number"
-                                      aria-label="Relative value">
-
-                                      <ng-messages for="relativeTime.rangeValue.$error"
-                                                   ng-if="(relativeTime.rangeValue.$touched ||
-                                                          relativeTime.$submitted)">
-                                          <ng-message when="required">
-                                              <span translate>
-                                                  Required field
-                                              </span>
-                                          </ng-message>
-                                          <ng-message when="greaterThan">
-                                              <span translate>
-                                                  Number must be greater than -1
-                                              </span>
-                                          </ng-message>
-                                      </ng-messages>
-                              </md-input-container>
-
-                              <md-input-container>
-                                  <md-select ng-model="relative.unit"
-                                             ng-change="formatRelative()"
-                                             aria-label="Unit">
-                                      <md-option ng-repeat="option in relativeOptions" value="{{ option.value }}">
-                                          <span>{{ option.text }}</span>
-                                      </md-option>
-                                  </md-select>
-                              <md-input-container>
-                          </div>
-
-                          <md-checkbox ng-model="relative.round"
-                                       ng-change="formatRelative()"
-                                       class="md-primary" aria-label="Start of period">
-                              <span>Start of the {{units[relative.unit]}}</span>
-                          </md-checkbox>
-
-                          <div class="tg-form-action">
-                              <md-button type="submit" ng-disabled="!relative.preview" class="md-raised md-primary" aria-label="Submit">
-                                  <span>Go</span>
-                              </md-button>
-                          </div>
-                      </form>
-                  </md-content>
-              </md-tab>
-
-              <md-tab label="absolute" md-on-select="setTab('absolute')">
-                  <md-content class="md-padding">
-                      <form ng-submit="applyAbsolute()" name="absoluteTime"
-                            layout="column" class="tg-filter-absolute-range" novalidate>
-                          <div layout="row" layout-align="start start">
-                              <md-input-container flex="15">
-                                  <label translate>From</label>
-                                  <input ng-model="absolute.time.from"
-                                         required
-                                         input-time
-                                         name="fromTimeField"
-                                         ng-change="configureAbsoluteRange(absolute)" aria-label="From">
-                                  <ng-messages for="absoluteTime.fromTimeField.$error"
-                                               ng-if="(absoluteTime.fromTimeField.$touched ||
-                                                      absoluteTime.$submitted)">
-                                      <ng-message when="parse">
-                                          <span translate>
-                                              Please enter a valid time
-                                          </span>
-                                      </ng-message>
-                                  </ng-messages>
-                              </md-input-container>
-
-                              <div layout="column" class="tg-datepicker-container">
-                                  <md-datepicker name="fromDateField" ng-model="absolute.date.from"
-                                                 ng-change="configureAbsoluteRange(absolute)"
-                                                 md-placeholder="Enter date"
-                                                 required md-max-date="today">
-                                  </md-datepicker>
-
-                                  <div class="tg-validation-messages" ng-messages="absoluteTime.fromDateField.$error">
-                                      <div class="tg-error" ng-message="valid">
-                                          <p translate>Please inform a valid date</p>
-                                      </div>
-
-                                      <div class="tg-error" ng-message="required">
-                                          <p translate>Please inform a valid date</p>
-                                      </div>
-
-                                      <div class="tg-error" ng-message="maxdate">
-                                          <p translate>Only days up to today</p>
-                                      </div>
-                                   </div>
-                              </div>
-                          </div>
-
-                          <div layout="row" layout-align="start start">
-                              <md-input-container  flex="15">
-                                  <label translate>To</label>
-                                  <input ng-model="absolute.time.to" input-time required name="toTimeField"
-                                         ng-change="configureAbsoluteRange(absolute)" aria-label="To">
-                                  <ng-messages for="absoluteTime.toTimeField.$error"
-                                               ng-if="(absoluteTime.toTimeField.$touched ||
-                                                      absoluteTime.$submitted)">
-                                      <ng-message when="parse">
-                                          <span translate>
-                                              Please enter a valid time
-                                          </span>
-                                      </ng-message>
-                                  </ng-messages>
-                              </md-input-container>
-
-                              <div layout="column" class="tg-datepicker-container">
-                                  <md-datepicker name="toDateField" ng-model="absolute.date.to"
-                                                 ng-change="configureAbsoluteRange(absolute)"
-                                                 md-placeholder="Enter date"
-                                                 required md-max-date="today">
-                                  </md-datepicker>
-
-                                  <div class="tg-validation-messages" ng-messages="absoluteTime.toDateField.$error">
-                                      <div class="tg-error" ng-message="valid">
-                                          <p translate>Please inform a valid date</p>
-                                      </div>
-
-                                      <div class="tg-error" ng-message="required">
-                                          <p translate>Please inform a valid date</p>
-                                      </div>
-
-                                      <div class="tg-error" ng-message="maxdate">
-                                          <p translate>Only days up to today</p>
-                                      </div>
-                                   </div>
-                              </div>
-
-                              <md-button ng-click="setToNow()" class="md-primary tg-datepicker-action"
-                                         aria-label="Set to now">
-                                  <span translate>Set to now</span>
-                              </md-button>
-                          </div>
-
-                          <div class="tg-validation-messages" ng-show="absolute.from > absolute.to"
-                               layout="row" layout-align="start start">
-                              <p translate>Invalid range</p>
-                          </div>
-
-                          <div class="tg-form-action">
-                              <md-button type="submit" class="md-raised md-primary" aria-label="Go">
-                                  <span translate>Go</span>
-                              </md-button>
-                          </div>
-                      </form>
-                  </md-content>
-              </md-tab>
-          </md-tabs>
-      </md-content>
-  </div>
-
-  <!-- Refresh Intervals -->
-  <div ng-show="activeTab === 'interval'" role="tabpanel" class="tab-pane active">
-    <br>
-    <div ng-repeat="list in refreshLists" class="kbn-refresh-section">
-      <ul class="list-unstyled">
-        <li ng-repeat="inter in list">
-          <a class="refresh-interval" ng-class="{ 'refresh-interval-active': interval.value === inter.value }" ng-click="setRefreshInterval(inter)">
-            {{inter.display}}
-          </a>
-        </li>
-      </ul>
+<div class="tg-filter-time-picker" ng-if="activeTab === 'filter'" role="tabpanel">
+    <div class="md-padding tg-section-toolbar">
+        Time range filter
     </div>
-  </div>
+
+    <md-content layout-fill>
+        <md-tabs md-selected="selectedTab" md-dynamic-height md-border-bottom>
+            <md-tab label="quick" md-on-select="setTab('quick')">
+                <md-content class="md-padding">
+                    <div layout="row" layout-xs="column" class="tg-filter-quick-range">
+                        <md-list ng-repeat="list in quickLists">
+                            <md-list-item ng-repeat="option in list" ng-click="setQuick(option.from, option.to)">
+                                <p>{{ option.display }}</p>
+                            </md-list-item>
+                        </md-list>
+                    </div>
+                </md-content>
+            </md-tab>
+
+            <md-tab label="relative" md-on-select="setTab('relative')">
+                <md-content class="md-padding">
+                    <form ng-submit="applyRelative()" name="relativeTime"
+                          layout="column" class="tg-filter-relative-range" novalidate>
+
+                         <p class="md-body-2">
+                          From:
+                          <span ng-show="relative.preview">{{relative.preview}}</span>
+                          <span ng-hide="relative.preview"><i>Invalid Expression</i></span>
+                        </p>
+
+                        <div layout="row">
+                            <md-input-container flex="15">
+                                <input
+                                    name="rangeValue"
+                                    required
+                                    ng-model="relative.count"
+                                    ng-change="formatRelative()"
+                                    greater-than="-1"
+                                    type="number"
+                                    aria-label="Relative value">
+
+                                    <ng-messages for="relativeTime.rangeValue.$error"
+                                                 ng-if="(relativeTime.rangeValue.$touched ||
+                                                        relativeTime.$submitted)">
+                                        <ng-message when="required">
+                                            <span translate>
+                                                Required field
+                                            </span>
+                                        </ng-message>
+                                        <ng-message when="greaterThan">
+                                            <span translate>
+                                                Number must be greater than -1
+                                            </span>
+                                        </ng-message>
+                                    </ng-messages>
+                            </md-input-container>
+
+                            <md-input-container>
+                                <md-select ng-model="relative.unit"
+                                           ng-change="formatRelative()"
+                                           aria-label="Unit">
+                                    <md-option ng-repeat="option in relativeOptions" value="{{ option.value }}">
+                                        <span>{{ option.text }}</span>
+                                    </md-option>
+                                </md-select>
+                            <md-input-container>
+                        </div>
+
+                        <md-checkbox ng-model="relative.round"
+                                     ng-change="formatRelative()"
+                                     class="md-primary" aria-label="Start of period">
+                            <span>Start of the {{units[relative.unit]}}</span>
+                        </md-checkbox>
+
+                        <div class="tg-form-action">
+                            <md-button type="submit" class="md-raised md-primary" aria-label="Submit">
+                                <span>Go</span>
+                            </md-button>
+                        </div>
+                    </form>
+                </md-content>
+            </md-tab>
+
+            <md-tab label="absolute" md-on-select="setTab('absolute')">
+                <md-content class="md-padding">
+                    <form ng-submit="applyAbsolute()" name="absoluteTime"
+                          layout="column" class="tg-filter-absolute-range" novalidate>
+                        <div layout="row" layout-align="start start">
+                            <md-input-container flex="15">
+                                <label translate>From</label>
+                                <input ng-model="absolute.time.from"
+                                       required
+                                       input-time
+                                       name="fromTimeField"
+                                       ng-change="configureAbsoluteRange(absolute)" aria-label="From">
+                                <ng-messages for="absoluteTime.fromTimeField.$error"
+                                             ng-if="(absoluteTime.fromTimeField.$touched ||
+                                                    absoluteTime.$submitted)">
+                                    <ng-message when="parse">
+                                        <span translate>
+                                            Please enter a valid time
+                                        </span>
+                                    </ng-message>
+                                </ng-messages>
+                            </md-input-container>
+
+                            <div layout="column" class="tg-datepicker-container">
+                                <md-datepicker name="fromDateField" ng-model="absolute.date.from"
+                                               ng-change="configureAbsoluteRange(absolute)"
+                                               md-placeholder="Enter date"
+                                               required md-max-date="today">
+                                </md-datepicker>
+
+                                <div class="tg-validation-messages" ng-messages="absoluteTime.fromDateField.$error">
+                                    <div class="tg-error" ng-message="valid">
+                                        <p translate>Please inform a valid date</p>
+                                    </div>
+
+                                    <div class="tg-error" ng-message="required">
+                                        <p translate>Please inform a valid date</p>
+                                    </div>
+
+                                    <div class="tg-error" ng-message="maxdate">
+                                        <p translate>Only days up to today</p>
+                                    </div>
+                                 </div>
+                            </div>
+                        </div>
+
+                        <div layout="row" layout-align="start start">
+                            <md-input-container  flex="15">
+                                <label translate>To</label>
+                                <input ng-model="absolute.time.to" input-time required name="toTimeField"
+                                       ng-change="configureAbsoluteRange(absolute)" aria-label="To">
+                                <ng-messages for="absoluteTime.toTimeField.$error"
+                                             ng-if="(absoluteTime.toTimeField.$touched ||
+                                                    absoluteTime.$submitted)">
+                                    <ng-message when="parse">
+                                        <span translate>
+                                            Please enter a valid time
+                                        </span>
+                                    </ng-message>
+                                </ng-messages>
+                            </md-input-container>
+
+                            <div layout="column" class="tg-datepicker-container">
+                                <md-datepicker name="toDateField" ng-model="absolute.date.to"
+                                               ng-change="configureAbsoluteRange(absolute)"
+                                               md-placeholder="Enter date"
+                                               required md-max-date="today">
+                                </md-datepicker>
+
+                                <div class="tg-validation-messages" ng-messages="absoluteTime.toDateField.$error">
+                                    <div class="tg-error" ng-message="valid">
+                                        <p translate>Please inform a valid date</p>
+                                    </div>
+
+                                    <div class="tg-error" ng-message="required">
+                                        <p translate>Please inform a valid date</p>
+                                    </div>
+
+                                    <div class="tg-error" ng-message="maxdate">
+                                        <p translate>Only days up to today</p>
+                                    </div>
+                                 </div>
+                            </div>
+
+                            <md-button ng-click="setToNow()" class="md-primary tg-datepicker-action"
+                                       aria-label="Set to now">
+                                <span translate>Set to now</span>
+                            </md-button>
+                        </div>
+
+                        <div class="tg-validation-messages" ng-show="absolute.from > absolute.to"
+                             layout="row" layout-align="start start">
+                            <p translate>Invalid range</p>
+                        </div>
+
+                        <div class="tg-form-action">
+                            <md-button type="submit" class="md-raised md-primary" aria-label="Go">
+                                <span translate>Go</span>
+                            </md-button>
+                        </div>
+                    </form>
+                </md-content>
+            </md-tab>
+        </md-tabs>
+    </md-content>
 </div>

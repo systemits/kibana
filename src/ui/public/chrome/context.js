@@ -2,10 +2,12 @@ define(function (require) {
   let _ = require('lodash');
   let ConfigTemplate = require('ui/ConfigTemplate');
 
+  require('ui/timepicker/refresh_intervals');
+
   require('ui/modules')
   .get('kibana')
   // TODO: all of this really belongs in the timepicker
-  .directive('chromeContext', function (timefilter, globalState) {
+  .directive('chromeContext', function (timefilter, globalState, refreshIntervals) {
 
     let listenForUpdates = _.once(function ($scope) {
       $scope.$listen(timefilter, 'update', function (newVal, oldVal) {
@@ -29,6 +31,17 @@ define(function (require) {
         $scope.toggleRefresh = function () {
           timefilter.refreshInterval.pause = !timefilter.refreshInterval.pause;
         };
+
+        $scope.setRefreshInterval = function (interval) {
+          interval = _.clone(interval);
+          console.log('before: ' + interval.pause);
+          interval.pause = (interval.pause == null || interval.pause === false) ? false : true;
+
+          console.log('after: ' + interval.pause);
+          timefilter.refreshInterval = interval;
+        };
+
+        $scope.refreshList = refreshIntervals;
       }
     };
   });

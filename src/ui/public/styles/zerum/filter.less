@@ -94,7 +94,7 @@ config[config-object=timefilter] .config .container-fluid {
     font-size: 12px;
 }
 
-.tg-filter-time-picker .tg-filter-absolute-range md-input-container{
+.tg-filter-time-picker .tg-filter-absolute-range md-input-container {
     margin-top: 18px;
 }
 
@@ -111,4 +111,47 @@ config[config-object=timefilter] .config .container-fluid {
     margin-top: 0px;
     font-size: 12px;
     color: rgb(213, 0, 0);
+}
+
+/* Toogle filter time picker div */
+div.tg-toggle-filter-time-picker {
+    height: 64px;
+}
+
+div.tg-toggle-filter-time-picker button.md-button * {
+    color: rgba(255, 255, 255, 0.870588);
+}
+
+div.tg-toggle-filter-time-picker button.md-button.md-primary * {
+    color: rgb(33, 150, 243);
+}
+
+div.tg-toggle-filter-time-picker button.md-button span {
+    margin-left: 12px;
+    font-size: 12px;
+}
+
+div.tg-toggle-filter-time-picker > *:not(:last-child) {
+    margin-right: 24px;
+}
+
+/* Animation */
+div.tg-filter-time-picker {
+    transition:0.375s ease-out all;
+}
+
+div.tg-filter-time-picker.ng-enter, div.tg-filter-time-picker.ng-leave.ng-leave-active {
+  max-height: 0;
+  overflow: hidden;
+}
+
+div.tg-filter-time-picker.ng-leave, div.tg-filter-time-picker.ng-enter.ng-enter-active {
+  max-height: 366px;
+}
+
+.tg-filter-time-picker div.tg-section-toolbar{
+    background-color: #f5f5f5;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+    color: rgba(0,0,0,0.54);
+    font-weight: bold
 }

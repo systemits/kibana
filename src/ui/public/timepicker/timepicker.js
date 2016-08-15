@@ -9,18 +9,16 @@ define(function (require) {
   require('ui/directives/input_time');
   require('ui/directives/inequality');
   require('ui/timepicker/quick_ranges');
-  require('ui/timepicker/refresh_intervals');
   require('ui/timepicker/time_units');
   require('ui/timepicker/toggle');
 
-  module.directive('kbnTimepicker', function (quickRanges, timeUnits, refreshIntervals) {
+  module.directive('kbnTimepicker', function (quickRanges, timeUnits) {
     return {
       restrict: 'E',
       scope: {
         from: '=',
         to: '=',
         tab: '=',
-        interval: '=',
         activeTab: '='
       },
       template: html,
@@ -36,7 +34,6 @@ define(function (require) {
         if (_.isUndefined($scope.tab)) $scope.tab = 'quick';
 
         $scope.quickLists = _(quickRanges).groupBy('section').values().value();
-        $scope.refreshLists = _(refreshIntervals).groupBy('section').values().value();
 
         $scope.relative = {
           count: 1,
@@ -131,7 +128,9 @@ define(function (require) {
         };
 
         $scope.setToNow = function () {
-          $scope.absolute.to = moment();
+          $scope.absolute.date.to = moment().toDate();
+          $scope.absolute.time.to = moment().valueOf();
+          $scope.configureAbsoluteRange($scope.absolute);
         };
 
         $scope.formatRelative = function () {
@@ -150,17 +149,10 @@ define(function (require) {
         }
 
         $scope.applyAbsolute = function () {
-          $scope.from = moment($scope.absolute.from);
-          $scope.to = moment($scope.absolute.to);
-        };
-
-        $scope.setRefreshInterval = function (interval) {
-          interval = _.clone(interval);
-          console.log('before: ' + interval.pause);
-          interval.pause = (interval.pause == null || interval.pause === false) ? false : true;
-
-          console.log('after: ' + interval.pause);
-          $scope.interval = interval;
+          if ($scope.absolute.from <= $scope.absolute.to) {
+            $scope.from = moment($scope.absolute.from);
+            $scope.to = moment($scope.absolute.to);
+          }
         };
 
         init();

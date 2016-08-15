@@ -1,33 +1,50 @@
-<ul ng-show="timefilter.enabled" class="nav navbar-nav navbar-right navbar-timepicker">
-  <li>
-    <a
-      ng-click="toggleRefresh()"
-      ng-show="timefilter.refreshInterval.value > 0">
+<div layout="row" layout-align="center center"
+     ng-show="timefilter.enabled" class="navbar-right tg-toggle-filter-time-picker">
+    <md-menu md-offset="0 45" md-position-mode="target-right target">
+        <md-button ng-click="$mdOpenMenu($event)"
+                   ng-class="{ 'md-primary' : timefilter.refreshInterval.value === 0 }" aria-label="Auto-refresh">
+            <md-icon md-font-set="mdi" md-font-icon="mdi-autorenew" class="mdi-24px"></md-icon>
 
-      <i class="mdi" ng-class="timefilter.refreshInterval.pause ? 'mdi-play' : 'mdi-pause'"></i>
-    </a>
-  </li>
+            <span ng-show="timefilter.refreshInterval.value === 0">OFF</span>
 
-  <li
-    ng-class="{active: pickerTemplate.is('interval') }"
-    ng-show="timefilter.refreshInterval.value > 0 || !!pickerTemplate.current"
-    class="to-body">
+            <span ng-show="timefilter.refreshInterval.value > 0">{{timefilter.refreshInterval.display}}</span>
 
-    <a ng-click="pickerTemplate.toggle('interval')" class="navbar-timepicker-auto-refresh-desc">
-      <span ng-show="timefilter.refreshInterval.value === 0"><i class="mdi mdi-refresh"></i> Auto-refresh</span>
-      <span ng-show="timefilter.refreshInterval.value > 0">{{timefilter.refreshInterval.display}}</span>
-    </a>
+            <md-tooltip md-direction="bottom">
+                <span translate>Auto-update</span>
+            </md-tooltip>
+        </md-button>
 
-  </li>
+        <md-menu-content width="2">
+            <md-menu-item>
+                <md-button ng-click="timefilter.refreshInterval.value = 0"
+                    ng-disabled="timefilter.refreshInterval.value === 0"
+                    class="md-warn">
+                    <span translate>OFF</span>
+                </md-button>
+            </md-menu-item>
 
-  <li class="to-body" ng-class="{active: pickerTemplate.is('filter')}">
-    <a
-      ng-click="pickerTemplate.toggle('filter')"
-      aria-haspopup="true"
-      aria-expanded="false"
-      class="navbar-timepicker-time-desc">
-      <i aria-hidden="true" class="mdi mdi-clock"></i>
-      <pretty-duration from="timefilter.time.from" to="timefilter.time.to"></pretty-duration>
-    </a>
-  </li>
-</ul>
+            <md-menu-divider></md-menu-divider>
+
+            <md-menu-item ng-repeat="interval in refreshList">
+                <md-button ng-click="setRefreshInterval(interval)"
+                           ng-disabled="timefilter.refreshInterval.value === interval.value">
+                    {{ interval.display }}
+                </md-button>
+            </md-menu-item>
+        </md-menu-content>
+    </md-menu>
+
+    <md-button ng-click="pickerTemplate.toggle('filter')" aria-label="Time Range">
+      <md-icon md-font-set="mdi" md-font-icon="mdi-clock" class="mdi-24px"></md-icon>
+
+      <span>
+        <pretty-duration from="timefilter.time.from" to="timefilter.time.to"></pretty-duration>
+      </span>
+
+      <md-tooltip md-direction="bottom">
+          <span translate>
+              Time range filter
+          </span>
+      </md-tooltip>
+    </md-button>
+</div>
