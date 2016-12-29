@@ -9,10 +9,9 @@ define(function (require) {
     let defaultMarkerType = 'Scaled Circle Markers';
 
     let mapTiles = {
-      url: 'https://otile{s}-s.mqcdn.com/tiles/1.0.0/map/{z}/{x}/{y}.jpeg',
+      url: 'https://a.tile.openstreetmap.org/{z}/{x}/{y}.png',
       options: {
-        attribution: 'Tiles by <a href="http://www.mapquest.com/">MapQuest</a> &mdash; ' +
-          'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, ' +
+        attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, ' +
           '<a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>',
         subdomains: '1234'
       }
