@@ -74,7 +74,7 @@ app.directive('shareObjectUrl', function (Private, Notifier) {
             queryParam = '?path=';
           }
 
-          $scope.formattedUrl = 'http://' + host + ':8080/#/analytics' + queryParam + encodedPath;
+          $scope.formattedUrl = 'http://' + host + '/#/analytics' + queryParam + encodedPath;
         }
 
         $scope.shortGenerated = false;
